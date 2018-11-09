@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
+tr:hover            { background-color: transparent;}
+td img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+</style>
+<head>
+<title>Contact</title>
+<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body class="w3-v-light-grey">
+
+<!-- Top container -->
+<div class="w3-container w3-top w3-dark-grey w3-large w3-padding" style="z-index:4">
+  <button class="w3-btn w3-hide-large w3-padding-0 w3-hover-text-grey" onclick="w3_open();"><img src="{{ url_for('static', filename='menubutton.png') }}" class="w3-circle w3-margin-right" style="width:22px"></i> &nbsp;Menu</button>
+  <span class="w3-right">Find <u>G</u>enes <u>A</u>ssociated with your gene <u>LI</u>st using human <u>PH</u>enot<u>Y</u>pes
+</span>
+</div>
+
+<!-- Sidenav/menu -->
+<nav class="w3-sidenav w3-collapse w3-white w3-animate-left" style="z-index:3;width:170px;" id="mySidenav"><br>
+
+  <div class="w3-container">
+    <div align="center">
+      <img src="{{ url_for('static', filename='galiphy_logo.png') }}" class="w3-circle w3-margin-right" style="width:56px">
+      <h5><b><font color="941751">GALIPHY &emsp; </font></b></h5>
+    </div>
+    <hr>
+    <h5>Menu</h5>
+  
+  <a href="{{ url_for('index') }}" class="w3-padding w3-hover-green"></i> > Tool</a>
+  <a href="{{ url_for('help') }}" class="w3-padding w3-hover-green"></i>  > Help </a>
+  <a href="{{ url_for('reference') }}" class="w3-padding w3-hover-green"></i> > Reference</a>
+  <a href="{{ url_for('contact') }}" class="w3-padding w3-hover-green"></i> &nbsp; <b><font color="941751"> > Contact </font></b></a>
+
+  </div>
+ 
+</nav>
+
+
+<!-- Overlay effect when opening sidenav on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:170px;margin-top:43px;">
+
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h1><b><font color="941751">Contact</font></b></h1>
+  </header>
+  <div class="w3-container">
+    <div class="w3-container">
+        For questions or problems contact
+        <a href="mailto:iljavanhoek2@gmail.com?Subject=%5BGaliphy%5D%2About%3A" class="w3-text-green w3-hover-text-red" target="_top">
+          iljavanhoek2@gmail.com
+        </a>
+    </div>
+
+    <div class="w3-container w3-twothird">
+      <br><br>
+      <h3>Credits</h3>
+      <b>Institutional support</b>
+      <br><br>
+      <table class="w3-table">
+        <tr>
+          <td style="text-align: center;"><img src="{{ url_for('static', filename='CMBI_logo.png') }}" style="width:70px">
+            <br><a href="https://www.radboudumc.nl/en/research/departments/center-for-molecular-and-biomolecular-informatics" class="w3-text-green w3-hover-text-red" target="_blank">Centre for Molecular and<br> Biomolecular Informatics</a></td>
+          <td style="text-align: center;"><img src="{{ url_for('static', filename='RIMLS_logo.jpg') }}" style="width:150px">
+            <br><a href="https://www.radboudumc.nl/en/radboud-institute-for-molecular-life-sciences" class="w3-text-green w3-hover-text-red" target="_blank">Radboud Institute for <br>Molecular Life Sciences</a></td>
+          <td style="text-align: center;"><img src="{{ url_for('static', filename='Radboud_Universiteit_logo.png') }}" style="width:40px">
+            <br><a href="https://www.ru.nl/" class="w3-text-green w3-hover-text-red" target="_blank">Radboud University<br> Nijmegen</a></td>
+        </tr>
+      </table>
+      All situated in Nijmegen, the Netherlands.
+      <br><br>
+      <b>Contributors</b>
+      <br><br>
+      Galiphy was made by Ilja van Hoek, under supervision of <a href="https://www.radboudumc.nl/en/people/martijn-huijnen/comparative-genomics" class="w3-text-green w3-hover-text-red" target="_blank">Prof. Martijn Huynen</a>.
+      <br><br>
+
+
+    </div>
+  </div>
+
+
+
+  <!-- End page content -->
+</div>
+
+<script>
+  // Get the Sidenav
+  var mySidenav = document.getElementById("mySidenav");
+
+  // Get the DIV with overlay effect
+  var overlayBg = document.getElementById("myOverlay");
+
+  // Toggle between showing and hiding the sidenav, and add overlay effect
+  function w3_open() {
+      if (mySidenav.style.display === 'block') {
+          mySidenav.style.display = 'none';
+          overlayBg.style.display = "none";
+      } else {
+          mySidenav.style.display = 'block';
+          overlayBg.style.display = "block";
+      }
+  }
+
+  // Close the sidenav with the close button
+  function w3_close() {
+      mySidenav.style.display = "none";
+      overlayBg.style.display = "none";
+  }
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
+</style>
+<head>
+<title>Reference</title>
+<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body class="w3-v-light-grey">
+
+<!-- Top container -->
+<div class="w3-container w3-top w3-dark-grey w3-large w3-padding" style="z-index:4">
+  <button class="w3-btn w3-hide-large w3-padding-0 w3-hover-text-grey" onclick="w3_open();"><img src="{{ url_for('static', filename='menubutton.png') }}" class="w3-circle w3-margin-right" style="width:22px"></i> &nbsp;Menu</button>
+  <span class="w3-right">Find <u>G</u>enes <u>A</u>ssociated with your gene <u>LI</u>st using human <u>PH</u>enot<u>Y</u>pes
+</span>
+</div>
+
+<!-- Sidenav/menu -->
+<nav class="w3-sidenav w3-collapse w3-white w3-animate-left" style="z-index:3;width:170px;" id="mySidenav"><br>
+
+  <div class="w3-container">
+    <div align="center">
+      <img src="{{ url_for('static', filename='galiphy_logo.png') }}" class="w3-circle w3-margin-right" style="width:56px">
+      <h5><b><font color="941751">GALIPHY &emsp; </font></b></h5>
+    </div>
+    <hr>
+    <h5>Menu</h5>
+  
+  <a href="{{ url_for('index') }}" class="w3-padding w3-hover-green"></i> > Tool</a>
+  <a href="{{ url_for('help') }}" class="w3-padding w3-hover-green"></i>  > Help </a>
+  <a href="{{ url_for('reference') }}" class="w3-padding w3-hover-green"></i> &nbsp; <b><font color="941751"> > Reference </font></b></a>
+  <a href="{{ url_for('contact') }}" class="w3-padding w3-hover-green"></i> > Contact</a>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidenav on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:170px; margin-top:43px">
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h1><b><font color="941751">Reference &amp; versions</font></b></h1>
+  </header>
+
+  <div class="w3-container w3-twothird">
+    <div class="w3-container">
+      <h4><b><font color="941751">Version 1.1</font></b></h4>
+      <b>First update of Galiphy, resolving phenotype scoring shortcoming.<br></b>
+      [07-11-2018]<br>
+
+      When phenotypes are not found among the query genes, the value of variable "q" is changed from 0 to 0.1. This is done in order to prevent mathematical error. However, 0.1 divided by any query gene list length still creates a bigger number than the value of "nq" divided by the non-query gene list length. I.e. in many cases, the phenotype score is higher than zero when a phenotype occurs zero times among the query genes. As this resulting positive phenotype score gives a gene an unwanted increase in gene score, a solution is needed. <br>
+      As the highest unwanted phenotype score (PS) is always the score for the variables of q = 0 and nq = 1. This score is used to normalize all PS's for q = 0, by substracting this highest score. So the scores are adjusted for all q = 0 cases. See the table below where both scoring in version 1.0 for q = 0 is shown and the new scoring in version 1.1.
+      <table>
+        <tr>
+          <th>(q;nq)</th>
+          <th>PS1.0(n;nq)</th>
+          <th>PS1.1(n;nq)</th>
+        </tr>
+        <tr>
+          <td>(0;1)</td>
+          <td>4.20</td>
+          <td>0.00</td>
+        </tr>
+        <tr>
+          <td>(0;2)</td>
+          <td>3.20</td>
+          <td>-1.00</td>
+        </tr>
+        <tr>
+          <td>(0;3)</td>
+          <td>2.00</td>
+          <td>-2.20</td>
+        </tr>
+        <tr>
+          <td>(0;x)</td>
+          <td>PS1.0(0;x)</td>
+          <td>PS1.0(0;x) - PS1.0(0;1)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="w3-container">
+
+      <h4><b><font color="941751">Version 1.0</font></b></h4>
+      <b>Release version of Galiphy with paper.</b><br>
+      [10-10-2018]<br>
+      Please cite us when using this tool in your research or presentation.
+      <p>
+        <b>van Hoek, I.N. and Huijnen, M.A. (2018).</b>
+        <span class="w3-text-blue"> Galiphy: Finding new candidate genes associated with molecular systems by computational screening for typical phenotypes.</span>
+        <b>Manuscript in preparation</b>
+      </p>
+    </div>
+  </div>
+
+  <div class="w3-container w3-third" style="margin-top:200px">
+
+    Click here to read the article in new window:
+    <br><br>
+    <a class="rood" href="{{ url_for('static', filename='Galiphy_article_2018.pdf') }}" target="_blank">
+      Galiphy article
+    </a>
+
+    <br><br><br><br>
+
+    The article can be downloaded here:
+    <br><br>
+    <a href="{{ url_for('static', filename='Galiphy_article_2018.pdf') }}" class="rood" download>
+      Download
+    </a>
+    <br>
+  </div>
+
+
+
+
+  <!-- End page content -->
+
+</div>
+
+
+<script>
+  // Get the Sidenav
+  var mySidenav = document.getElementById("mySidenav");
+
+  // Get the DIV with overlay effect
+  var overlayBg = document.getElementById("myOverlay");
+
+  // Toggle between showing and hiding the sidenav, and add overlay effect
+  function w3_open() {
+      if (mySidenav.style.display === 'block') {
+          mySidenav.style.display = 'none';
+          overlayBg.style.display = "none";
+      } else {
+          mySidenav.style.display = 'block';
+          overlayBg.style.display = "block";
+      }
+  }
+
+  // Close the sidenav with the close button
+  function w3_close() {
+      mySidenav.style.display = "none";
+      overlayBg.style.display = "none";
+  }
+</script>
+
+
+</body>
+</html>

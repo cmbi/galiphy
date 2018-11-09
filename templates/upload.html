@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='loading-btn.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='loading.css') }}"/>
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
+textarea {
+    width: 100%;
+}
+
+</style>
+<head>
+<title>Galiphy</title>
+<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body class="w3-v-light-grey">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Top container -->
+<div class="w3-container w3-top w3-dark-grey w3-large w3-padding" style="z-index:4">
+  <button class="w3-btn w3-hide-large w3-padding-0 w3-hover-text-grey" onclick="w3_open();"><img src="{{ url_for('static', filename='menubutton.png') }}" class="w3-circle w3-margin-right" style="width:22px"></i> &nbsp;Menu</button>
+  <span class="w3-right">Find <u>G</u>enes <u>A</u>ssociated with your gene <u>LI</u>st using human <u>PH</u>enot<u>Y</u>pes
+</span>
+</div>
+
+<!-- Sidenav/menu -->
+<nav class="w3-sidenav w3-collapse w3-white w3-animate-left" style="z-index:3;width:170px;" id="mySidenav"><br>
+
+  <div class="w3-container">
+    <div align="center">
+      <img src="{{ url_for('static', filename='galiphy_logo.png') }}" class="w3-circle w3-margin-right" style="width:56px">
+      <h5><b><font color="941751">GALIPHY &emsp; </font></b></h5>
+    </div>
+    <hr>
+    <h5>Menu</h5>
+  
+  <a href="{{ url_for('index') }}" class="w3-padding w3-hover-green"></i> &nbsp; <b><font color="941751"> > Tool </font></b></a>
+  <a href="{{ url_for('help') }}" class="w3-padding w3-hover-green"></i>  > Help </a>
+  <a href="{{ url_for('reference') }}" class="w3-padding w3-hover-green"></i> > Reference</a>
+  <a href="{{ url_for('contact') }}" class="w3-padding w3-hover-green"></i> > Contact</a>
+  </div>
+</nav>
+
+<script type="text/javascript">
+  function validateform(f) {
+    if (f.value == "") {
+      myForm.list_genes.focus();
+    }
+    else {
+      sumbit_btn.classList.add('running');
+
+    }
+  }
+</script>
+
+<!-- Overlay effect when opening sidenav on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:170px;margin-top:20px;">
+  <div class="w3-container">
+
+      <!-- Header and Galiphy introduction -->
+    <div class="w3-container w3-twothird" style="padding-right: 30px">
+      <h2 id="h1results"><b><font color="941751">Welcome to Galiphy!</font></b></h2>
+      Galiphy gives a prediction of novel human genes that have a similar function to your genes of interest. The only thing needed to run Galiphy for your research or clinical interest, is a simple list of human genes. This tool uses the assumption that genes sharing the same pathway have a similar phenotype 'profile' when those genes are defect. <br>
+      By entering genes you are learning the algorithm what phenotypes are typical for your pathway or disease of interest. Then Galiphy returns genes with scores depicting how much the genes are fitting the phenotype 'profile'. High scoring genes that were not in your initial gene list are your novel genes.
+    </div>
+
+      <!-- Client input field, for input to tool (form: one textarea and one submit button) with hoverable example inputs -->
+    <div class="w3-container w3-quarter" style="width:400px;margin-left: 70px">
+      <form name= "myForm" method="POST" action="uploader" class=add-entry id="input_form" onSubmit="validateform(myForm.list_genes); return True">
+        <dl>
+
+          <dt>Enter a list of human genes: </dt>
+          <!-- Hoverable input examples, not clickable -->
+          <dt>
+            <span style= "float:middle ; color:grey">
+              <i><font size="2">
+                (Examples: 
+                <font class='w3-text-green'>
+                  <span class="tooltip">
+                    #1
+                    <span class="tooltiptext">
+                      gene names:<br>AP2S1 <br>ATP5F1A <br>ATP5F1E <br>ATP6  <br>BDNF  <br>CASP8 <br>COX1  <br> COX2  <br>COX3  <br>COX4I2  <br>COX6A1  <br>COX6B1  <br>COX7B <br>CREB1 <br>CREBBP  <br> CYC1  <br>etc..
+                    </span>
+                  </span>
+                  <span class="tooltip">
+                    #2
+                    <span class="tooltiptext">
+                      gene IDs <br>(advised):<br>1175  <br>498 <br>170692 <br>4508  <br>4509  <br>627 <br>4512  <br>4513  <br>4514  <br>84701 <br>1337 <br>1340  <br>1349  <br>1385 <br>54205 <br>etc..
+                    </span>
+                  </span>
+                  <span class="tooltip">
+                    #3
+                    <span class="tooltiptext">
+                      name, IDs and<br>Ensembl code <br>mixed:<br>170692 <br>54205 <br>514 <br>841 <br>COX1  <br>COX2  <br>4514 <br>841 <br>BDNF  <br>1387 <br>CREB1 <br>ENSG00000102978  <br>ENSG00000144231 <br>ENSG00000163882 <br>etc..
+                    </span>
+                  </span>
+                </font>
+                )
+              </font></i>
+            </span>
+          </dt> 
+          <!-- Textarea for the input -->
+          <dt>
+            <textarea name="list_genes" rows=10 style="width: 200px" value="List of genes" id="textinput" form="input_form"></textarea>
+          
+          <!-- Submit button. After clicking, content of textarea is sent to app.py and loading 'bouncing ball' animation starts -->
+          
+            <button id="sumbit_btn" type="submit" form="input_form" value="Submit" class="ld-over-full" style="background-color: #941751;border: none;color: white;padding: 15px 32px;margin: 4px 2px;}">
+              Submit
+              <div class="ld ld-ball ld-bounce">
+              </div>
+            </button><br><span style="color:#625E63">Read on &#8595;</span>
+          </dt>
+        </dl>
+      </form>
+
+    </div>
+
+
+
+
+    <!-- Information box, with link to FAQs -->
+    <div class="w3-container w3-third topright" style="font-size:0.85em; border: solid 3px #45A9A6">
+      <b><font size="3" color="941751">Is Galiphy worth exploring for me?</font></b>
+      <i>
+        <span style="float:right">
+          <a href="{{ url_for('help') }}" class="w3-text-green w3-hover-text-red">
+            <b>More FAQs</b>
+          </a>
+        </span>
+        <ul style="padding-left:20px">
+          <li>You are a clinical professional and interested in some candidate genes that are not yet described to be associated with a disease.</li>
+          <li>You are a researcher and looking for candidate genes not yet discovered to be in your pathway of interest.</li>
+          <li>You are already working with genes that are underannotated and looking for more validation for your (clinical) lab experiments.</li>
+        </ul>
+      </i>
+    </div>
+  </div>
+
+<!-- Text area explanation of Galiphy  -->
+  <div class="w3-container w3-dark-grey">
+      <h3> Galiphy summary </h3>
+      Galiphy prioritizes genes using an elegant algorithm and data from the 
+      <a href="https://hpo.jax.org/app/" class="w3-text-green w3-hover-text-red" target="_blank">Human Phenotype Ontology (HPO)</a>
+      database. This database annotates human phenotypes to {{ genes_in_HPO }} human gene defects, offering interesting computational analyses. The algorithm of Galiphy uses the frequencies of phenotypes among the gene defects to generate scores. 
+      There is a tutorial and example section on the <a href="{{ url_for('help') }}" class="w3-text-green w3-hover-text-red" >Help</a> page to guide you through this tool and the algorithm behind it.
+      <br><br>
+
+      <div class="w3-container w3-half">
+        <h4><b> Input: gene list </b></h4>
+        <h5 class="w3-bottombar w3-border-purple">Gene list of interest</h5>
+        <p>
+        	Provide a gene list that preferably share a function or effect when defect.
+          The more genes you provide, the better the algorithm can predict.
+        	For example, this tool was developed to find novel mitochondrial 
+        	proteins, i.e. genes not yet present among the
+        	to <a href="https://www.broadinstitute.org/scientific-community/science/programs/metabolic-disease-program/publications/mitocarta/mitocarta-in-0" class="w3-text-green w3-hover-text-red" target="_blank">Mitocarta</a> list. <br>
+          Note that Galiphy runs with the genes that are listed in HPO. Which on average results in query genes in the algorithm half the length of your input list.  
+        </p>
+      </div>
+      <div class="w3-container w3-half">
+        <h4> <b> Output: 3 files</b></h4>
+        <h5 class="w3-bottombar w3-border-blue">1. Phenotype scored</h5>
+        <p>
+          Based on frequencies of phenotypes among the query genes, all phenotypes are given a score. 
+          This files contains a list of all phenotypes in HPO each with their frequency among the query and non-query genes, and phenotype score (PS). Interesting for the clinicians to look for the most typical phenotypes of the query list.
+        </p>
+      
+        <h5 class="w3-bottombar w3-border-green">2. Genes scored</h5>
+        <p>
+          Based on the phenotype scores of the phenotypes associated to a gene, all genes are given a score.
+          This file contains a list of all genes in HPO each with their gene score (GS).
+          Most interesting file for researchers and clinicians. Genes that score high and are not in the query, are your novel genes of interest. 
+        </p>
+
+        <h5 class="w3-bottombar w3-border-myred">3. How genes got their scores</h5>
+        <p>
+          This output file contains all genes and all its phenotypes as assigned by HPO. 
+          This allows an insight on how the genes got their score and what phenotypes each gene has.
+        </p>
+        <br><br><br><br><br>
+
+      </div>
+  </div>
+  <!-- End page content -->
+</div>
+
+<script type="text/javascript">
+  // Get the Sidenav
+  var mySidenav = document.getElementById("mySidenav");
+
+  // Get the DIV with overlay effect
+  var overlayBg = document.getElementById("myOverlay");
+
+  // Toggle between showing and hiding the sidenav, and add overlay effect
+  function w3_open() {
+      if (mySidenav.style.display === 'block') {
+          mySidenav.style.display = 'none';
+          overlayBg.style.display = "none";
+      } else {
+          mySidenav.style.display = 'block';
+          overlayBg.style.display = "block";
+      }
+  }
+
+  // Close the sidenav with the close button
+  function w3_close() {
+      mySidenav.style.display = "none";
+      overlayBg.style.display = "none";
+  }
+</script>
+
+
+  <div id=footercredits class="w3-container w3-dark-grey w3-padding" style="z-index:4" >
+    <span style="float: right;">Galiphy &copy; made by Ilja van Hoek</span>
+  </div> 
+
+
+
+</body>
+</html>
