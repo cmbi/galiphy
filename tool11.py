@@ -152,7 +152,7 @@ def scorephenotypes(HPO10_df, Q, output_phen, output_phenpergenes):
             nq = 0.1
         # generating phenotype score for the phenotype
         phenscore = formula_lin_zerocorr(q,Q,nq,nQ)
-        phenscores_dict[phenID] = [HPO_dict[phenID], q, nq, n, phenscore] # better to just append list in a list
+        phenscores_dict[phenID] = [HPO_dict[phenID], q, nq, n, phenscore]
         
     phenscores_list = [[k]+v for k, v in phenscores_dict.items()] # change dictionary to list so that it can be turned into df
     phen_df = pd.DataFrame.from_records(phenscores_list, columns = ['Phenotype_ID','Description','q','nq','tot','Phenotype_score'])
@@ -200,6 +200,9 @@ def scoregenes(phenscores_dict, genestophen_dict, gene_dict, output_genes):
             genescore += phenscores_dict[phenID][-1]
         genescores_dict[geneID] = round(genescore, 4)
 
+    # List are made from each element in the gene dictionary so that
+    # a genescore dataframe can be made from all the lists in which 
+    # each list is a column.
     geneID_list = []
     genename_list = []
     query_list = []
@@ -226,12 +229,9 @@ def tool11(filehandle):
     Also some output file names are generated.
 
     """
-    # Version: every year a new integer, during the year updates in the decimal.
+
     # /home/galiphy/
-    ##############################################################################
-    ############# HPO updates [must be refreshed every month]###################
     HPOfilename = "ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt"
-    ##############################################################################
 
     # Step 1: Query checking
     ## if none of the genes are valid human genes, the tool cannot be run 

@@ -68,15 +68,19 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
     <br>
     <div class="w3-container">
       <p>
-        <h5><b><font color="703093">Q1 Is Galiphy worth exploring for me?</font></b></h5>
+        <h5><b><font color="703093">Q1 How do I pronounce Galiphy?</font></b></h5>
+        The last syllable has the same pronounciation as the verb '<b>fry</b>' but then without the 'r'.
+      </p>
+      <p>
+        <h5><b><font color="703093">Q2 Is Galiphy worth exploring for me?</font></b></h5>
         <ul>
           <li>You are a clinical professional and interested in some candidate genes that are not yet described to be associated with a disease.</li>
           <li>You are a researcher and looking for candidate genes not yet discovered to be in your pathway of interest.</li>
           <li>You are already working with genes that are underannotated and looking for more validation for your (clinical) lab experiments.</li>
         </ul>
       </p>
-      <p id="Q2">
-        <h5><b><font color="703093">Q2 What kind of input is accepted?</font></b></h5>
+      <p id="Q3">
+        <h5><b><font color="703093">Q3 What kind of input is accepted?</font></b></h5>
           <b>Format</b><br>
           Accepted formats are gene names (symbol), Entrez gene IDs and Ensembl gene IDs, e.g. COX4I1P2, 652170 and ENSG00000228869, respectively. A list of genes with enter or space as seperator. Gene IDs are the advised format, as they are most easily recognized and least prone to errors.<br>
           <b> Ensembl versions</b><br>
@@ -85,22 +89,22 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
           This tool can only run with human genes. <br>
 
       </p>
-      <p id="Q3">
-        <h5><b><font color="703093">Q3 How do I get a gene list?</font></b></h5>
-        Good question. As you need a larger gene list to get a better prediction, try to gather genes that share a pathway, cellular function, cellular system, disease or co-expression. Maybe there is already a gene list there for your system of interest, like on wikipedia, OMIM, KEGG pathways, Reactome, weget etc.
+      <p id="Q4">
+        <h5><b><font color="703093">Q4 How do I get a gene list?</font></b></h5>
+        Good question. As you need a larger gene list to get a better prediction, try to gather genes that share a pathway, cellular function, cellular system, disease or co-expression. Maybe there is already a gene list there for your system of interest, like on wikipedia, OMIM, KEGG pathways, Reactome, WeGET etc.
       </p>
       <p>
-        <h5><b><font color="703093">Q4 Is my gene list too short? </font></b></h5>
-        What has to be clarified first is that not all genes that you enter are be processed through the prediction algorithm. Some genes will be dropped from the query because they are not listed in the phenotype database HPO. Mostly, around half the genes you enter end up in the actual algorithm.<br>
+        <h5><b><font color="703093">Q5 Is my gene list too short? </font></b></h5>
+        What has to be clarified first is that not all genes that you enter will run through the prediction algorithm. Some genes will be dropped from the query because they are not listed in the phenotype database HPO. Mostly around half the genes are dropped.<br>
         Furthermore, the algorithm tends to have a better prediction power with the following factors: abundant phenotype annotation of the query genes, similarity of the phenotypes among the query genes, and the length of the query gene list. <br>
-        Take all of the above into considerations, and always look at the output critically. Try to end up with at least 10 genes that are listed in HPO. 
+        Take all of the above into consideration, and always look at the output critically. Try to end up with at least 10 genes that are listed in HPO. More genes is always better. 
       </p>
       <p>
-        <h5><b><font color="703093">Q5 What is the easiest way to view the output files?</font></b></h5>
+        <h5><b><font color="703093">Q6 What is the easiest way to view the output files?</font></b></h5>
         Open Excell, open the scoring files from here (File > Open) or right-click the file in your Download folder and click 'open in Excel'. Then press ctr+a and click Insert > Table, this way you can sort the columns easily. 
       </p>
-      <p id="Q6">
-        <h5><b><font color="703093">Q6 What can I do to validate the results? </font></b></h5>
+      <p id="Q7">
+        <h5><b><font color="703093">Q7 What can I do to validate the results? </font></b></h5>
         Like in the Galiphy article, you can use several methods:<br><br>
         <b> Statistical methods:</b>
         <ul>
@@ -185,46 +189,49 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
             </p>
           </div>
         </div>
-        <div class="w3-container">
-          Now that you have a feeling of the scores, I will introduce you to the exact formula behind the phenotype scores.
-          The probability of finding any phenotype amongst the query list is dependent on the lenght of the query gene list. So if HPO contains a total of {{ genes_in_HPO }} genes, and the query list contains 393 genes, the non-query list has {{ genes_in_HPO - 393 }} genes.
-        </div> <br>
-        <div class="w3-container">
-          <h6 style="margin-left:3em"><b>The formula</b></h6>
-          <div class="w3-container w3-quarter" style="text-align:right">
-            <br>Example numbers<br>
-            <i>
-              q = 3 of Q = 393 <br>
-              nq = 32 of nQ = {{ genes_in_HPO - 393 }} <br>
-              tot = 35 of T = {{ genes_in_HPO }}
-            </i>
-          </div>
-          <div class="w3-container w3-third" style="min-width: 300px">
+        <div class="v1">
+          <h4>Mathematics of Galiphy</h4>
+          <div class="w3-container">
+            Now that you have a feeling of the scores, I will introduce you to the exact formula behind the phenotype scores.
+            The probability of finding any phenotype amongst the query list is dependent on the lenght of the query gene list. So if HPO contains a total of {{ genes_in_HPO }} genes, and the query list contains 393 genes, the non-query list has {{ genes_in_HPO - 393 }} genes.
+          </div> <br>
+          <div class="w3-container">
+            <h6 style="margin-left:3em"><b>The formula</b></h6>
+            <div class="w3-container w3-quarter" style="text-align:right">
+              <br>Example numbers<br>
+              <i>
+                q = 3 of Q = 393 <br>
+                nq = 32 of nQ = {{ genes_in_HPO - 393 }} <br>
+                tot = 35 of T = {{ genes_in_HPO }}
+              </i>
+            </div>
+            <div class="w3-container w3-third" style="min-width: 300px">
+              <br><br>
+              <img src="{{ url_for('static', filename='formula1.png') }}" style="width:280px">
+              <br><br>
+            </div>
+            <div class="w3-container w3-threequarter">
+              <br>
+              Where q is the abundance of the phenotype among the query gene list Q, and nq is the abundance of the phenotype among the non-query gene list nQ. 
             <br><br>
-            <img src="{{ url_for('static', filename='formula1.png') }}" style="width:280px">
-            <br><br>
-          </div>
-          <div class="w3-container w3-threequarter">
-            <br>
-            Where q is the abundance of the phenotype among the query gene list Q, and nq is the abundance of the phenotype among the non-query gene list nQ. 
-          <br><br>
-          Note: If one of the variables is zero, a mathematical error must be prevented. 
-            <font color=#45A9A6>
-              <span class="tooltip_h">Read
-                <span class="tooltiptext_h" style="font-size:0.75em">
-                  When a phenotype is not found among the query genes (<b>"q"</b>) or the non-query genes (<b>"nq"</b>), <b>zero is replaced by 0.1</b> to prevent mathematical errors (due to division by zero for <b>nq</b>=0, and the undefined logarithm of zero for <b>q</b>=0).
+            Note: If one of the variables is zero, a mathematical error must be prevented. 
+              <font color=#45A9A6>
+                <span class="tooltip_h">Read
+                  <span class="tooltiptext_h" style="font-size:0.75em">
+                    When a phenotype is not found among the query genes (<b>"q"</b>) or the non-query genes (<b>"nq"</b>), <b>zero is replaced by 0.1</b> to prevent mathematical errors (due to division by zero for <b>nq</b>=0, and the undefined logarithm of zero for <b>q</b>=0).
+                  </span>
                 </span>
-              </span>
-            </font>
-            how.
+              </font>
+              how.
+            </div>
           </div>
-        </div>
-        <br>
-        <div class="w3-container">
-          You can now calculate the phenotype score of this example yourself. You can - without touching any calculator if you are a bit familiar with logarithms - already guess whether the score would be lower than -4, higher than 4 or in between.  <br>
-          <p style="text-align:right; color:grey" >
-          psst.... &#161;&#613;&#387;no&#613;&#647; &#654;&#633;&#647; poo&#387; '9 puno&#633;&#592; s&#7433; &#633;&#477;&#653;su&#592; &#477;&#613;&#647; no&#654; ll&#477;&#647; u&#592;&#596; I</p>
-          So the phenotype scoring file can provide you with information about which phenotypes are most typical among your query gene list. Be aware that the scores of the phenotypes that occur only a few times in total are less reliable. 
+          <br>
+          <div class="w3-container">
+            <p style="text-align:right; color:grey" >
+            You can now calculate the phenotype score of this example yourself. You can - without touching any calculator if you are a bit familiar with logarithms - already guess whether the score would be lower than -4, higher than 4 or in between.  <br>
+            psst.... &#161;&#613;&#387;no&#613;&#647; &#654;&#633;&#647; poo&#387; '9 puno&#633;&#592; s&#7433; &#633;&#477;&#653;su&#592; &#477;&#613;&#647; no&#654; ll&#477;&#647; u&#592;&#596; I</p>
+            So the phenotype scoring file can provide you with information about which phenotypes are most typical among your query gene list. Be aware that the scores of the phenotypes that occur only a few times in total are less reliable. 
+          </div>
         </div>
       </div>
       <br><br>

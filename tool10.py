@@ -24,19 +24,17 @@ def handlinginput(infile):
     They are put into lists. 
     """
     mg = mygene.MyGeneInfo()
-
-    try: # if none of the query genes are recognized, 
+    try: # if none of the query genes are recognized, return three empty lists so that tool does not run other functions.
         mygene_dict = mg.querymany(infile, df_index = True, returnall = True, as_dataframe=True,species='human', scopes="ensemblgene,symbol,entrezgene")
     except:
         return [], [], []
-    print "RAW MYGENEINFO:\n", mygene_dict
-
     try:
         idname_df = mygene_dict['out'][['_id', 'name', 'symbol']].drop_duplicates().dropna()
     except:
         idname_df = []
-    dupli = mygene_dict['dup']
-    missing = mygene_dict['missing']
+    dupli = mygene_dict['dup'] # genes that mygene noticed as duplicates in the query list
+    missing = mygene_dict['missing'] # genes that mygene could not recognize in its database
+    print "length mygeneinfo df:",len(idname_df)
     return idname_df, dupli, missing
 
 def add10toHPOfile(query_df,HPOfile):
@@ -67,7 +65,7 @@ def add10toHPOfile(query_df,HPOfile):
     """
 
     """example of one row in HPO file: 
-    8192	CLPP	Aplasia/Hypoplasia of the cerebellum	HP:0007360"""
+    8192    CLPP    Aplasia/Hypoplasia of the cerebellum    HP:0007360"""
 
     HPO_df = pd.read_table(HPOfile, 
                                     header=0,
@@ -75,16 +73,34 @@ def add10toHPOfile(query_df,HPOfile):
                                     dtype = {'geneID' : str})
     
     """the input-list comes from a geneID converter, should convert to only 1 column with geneIDs"""
+    print "query_df:\n",query_df
     queryinHPO_df = query_df['_id'].isin(HPO_df['geneID']) # generates a dataframe (True False) on index of query dataframe, whether query gene is in HPO
     query10 = pd.concat([query_df, queryinHPO_df.rename('isinHPO')], axis=1) # adds this new dataframe to the query dataframe (as last column)
-    accepted_df = query10[query10['isinHPO']==True].iloc[:,:3] # split dataframe into a True df
-    dropped_df = query10[query10['isinHPO']==False].iloc[:,:3] # and a False df, i.e. script continues with the accepted genes 
+    accepted_df = query10[query10['isinHPO']==True].iloc[:,:3] # split dataframe into a True df, i.e. algorithm continues with the accepted genes 
+    dropped_df = query10[query10['isinHPO']==False].iloc[:,:3] # and a False df, these are shown to the client
     print '\n\naccepted:\n',accepted_df,'\ndropped:\n',dropped_df
-    HPOinquery_df = HPO_df['geneID'].isin(accepted_df['_id']).map({True: 1, False: 0}) # 
-    HPO10_df = pd.concat([HPO_df,HPOinquery_df.rename('query10')], axis=1)
+    HPOinquery_df = HPO_df['geneID'].isin(accepted_df['_id']).map({True: 1, False: 0}) # make df with 1's and 0's of HPO genes that are (1) or arent (0) in clients query
+    HPO10_df = pd.concat([HPO_df,HPOinquery_df.rename('query10')], axis=1) # add this 1/0 column to the HPO df
     return HPO10_df, len(accepted_df), accepted_df, dropped_df
 
 
+def formula_lin_zerocorr(q, Q, nq, nQ):
+    
+    # This function is added in the 1.1 version of Galiphy. 
+    # When phenotypes had no occurences among the query genes, but because
+    # the zero is changed to 0.1, the phenotype score ends up to be positive.
+    # Since a positive score is not wanted for any phenotype that does not
+    # occur among the query genes, the score are lowered in this function.
+    # The zero correction is the score for q=0 and nq=1.
+    # Every time the q (frequency among query genes) is zero (and thus 0.1),
+    # the zero correction is substracted from the resulting score. This way,
+    # every PS of q=0 ends up to be negative (or zero, in case of q=0 nq=1).
+    
+    if q == 0.1:
+        zero_corr = math.log((0.1 / float(Q)) / float((1 / float(nQ))), 2)
+    else:
+        zero_corr = 0
+    return math.log((q / float(Q)) / float((nq / float(nQ))), 2) - zero_corr
 
 
 def scorephenotypes(HPO10_df, Q, output_phen, output_phenpergenes):
@@ -125,21 +141,25 @@ def scorephenotypes(HPO10_df, Q, output_phen, output_phenpergenes):
     
     phenscores_dict = {}
     for phenID in phen10_dict:
-        n = len(phen10_dict[phenID])
-        q = sum(phen10_dict[phenID])
-        nq = n - q
+        n = len(phen10_dict[phenID]) # total freq of phenotype
+        q = sum(phen10_dict[phenID]) # freq of 1's (query genes) of phenotype
+        nq = n - q # freq of non-query genes among phenotypes
+        # zeroes in the formula give a mathematical error. Therefore,
+        # frequencies of zero are changed to 0.1's
         if q == 0:
             q = 0.1
         if nq == 0:
             nq = 0.1
+        # generating phenotype score for the phenotype
         phenscore = math.log((q / float(Q)) / float((nq / float(nQ))), 2)
-        phenscores_dict[phenID] = [HPO_dict[phenID], q, nq, n, phenscore] # better to just append list in a list
+        phenscores_dict[phenID] = [HPO_dict[phenID], q, nq, n, phenscore]
         
-    phenscores_list = [[k]+v for k, v in phenscores_dict.items()]
+    phenscores_list = [[k]+v for k, v in phenscores_dict.items()] # change dictionary to list so that it can be turned into df
     phen_df = pd.DataFrame.from_records(phenscores_list, columns = ['Phenotype_ID','Description','q','nq','tot','Phenotype_score'])
     phen_df.sort_values(by="Phenotype_score", ascending=False, inplace=True)
     phen_df.reset_index(drop=True, inplace=True)
     phen_df.index += 1
+    # Make df with all genes and all phenotypes associated with them with the phenotype scores and frequencies. For insight and generating gene scores later.
     phenpergenes_df = HPO10_df.merge(phen_df, left_on='phenID', right_on='Phenotype_ID', how='left').drop(['description', 'phenID'], axis=1).sort_values(by=['query10','genename', 'Phenotype_score'], ascending=[0, 1, 0])
     phenpergenes_df.reset_index(drop=True, inplace=True)
     phenpergenes_df.index += 1
@@ -151,7 +171,7 @@ def scorephenotypes(HPO10_df, Q, output_phen, output_phenpergenes):
     return phenscores_dict, genestophen_dict, gene_dict, phen_df, phenpergenes_df, numbers
 
 
-def scoregenes(phenscores_dict,genestophen_dict,gene_dict, output_genes):
+def scoregenes(phenscores_dict, genestophen_dict, gene_dict, output_genes):
     """
     Step 4: Scoring the genes
 
@@ -180,6 +200,9 @@ def scoregenes(phenscores_dict,genestophen_dict,gene_dict, output_genes):
             genescore += phenscores_dict[phenID][-1]
         genescores_dict[geneID] = round(genescore, 4)
 
+    # List are made from each element in the gene dictionary so that
+    # a genescore dataframe can be made from all the lists in which 
+    # each list is a column.
     geneID_list = []
     genename_list = []
     query_list = []
@@ -197,7 +220,7 @@ def scoregenes(phenscores_dict,genestophen_dict,gene_dict, output_genes):
     genescores_df.to_csv(output_genes,sep='\t')
     return genescores_df
 
-def tool10(filehandle):
+def tool11(filehandle):
     """
     Requesthandler
 
@@ -206,21 +229,24 @@ def tool10(filehandle):
     Also some output file names are generated.
 
     """
-    # Version: every year a new integer, during the year updates in the decimal.
-    # /home/galiphy/
-    ##############################################################################
-    ############# HPO updates [must be refreshed every month]###################
-    HPOfilename = "ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt"
-    ##############################################################################
 
-    # Step 1
+    # /home/galiphy/
+    HPOfilename = "ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt"
+
+    # Step 1: Query checking
+    ## if none of the genes are valid human genes, the tool cannot be run 
+    ## empty lists are returned and only the missing values are return to client
     query, dupli, missing = handlinginput(filehandle)
-    if len(query) == 0:
-        return [], [], [],[], [], [],[], [], [], missing, dupli
+    if len(query) == 0: 
+        return [], [], [],[], [], [],[], [], [], missing, []
     else:
         print "query not empty"
+    print "query is:",query
 
     # Step 2: checking with HPO
+    ## if none of the query genes are in the HPO database, the tool cannot be run
+    ## empty lists are returned and only the empty accepted dataframe, 
+
     HPO_10, Q, accepted_df, dropped_df = add10toHPOfile(query,HPOfilename)
     if len(accepted_df) == 0:
         return [], [], [],[], [], [], accepted_df, dropped_df, [], missing, dupli
@@ -241,7 +267,7 @@ def tool10(filehandle):
     genescores_df = scoregenes(phenscores_dict, genestophen_dict, gene_dict, output_genes)
 
 
-    print '\nPhenotype scoring results: (saved as "%s")\n'%output_phen[7:]#, phen_df, 
-    print '\nGene scoring results: (saved as "%s")\n'%output_genes[7:]#, genescores_df
+    print '\nPhenotype scoring results: (saved as "%s")\n'%output_phen[7:], phen_df, 
+    print '\n\nGene scoring results: (saved as "%s")\n'%output_genes[7:], genescores_df
     return phen_df, genescores_df, numbers, output_phen, output_genes, output_phenpergenes, accepted_df, dropped_df, Q, missing, dupli
 

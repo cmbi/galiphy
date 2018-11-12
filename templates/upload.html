@@ -10,7 +10,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
 textarea {
     width: 100%;
 }
-
 </style>
 <head>
 <title>Galiphy</title>
@@ -52,7 +51,6 @@ textarea {
     }
     else {
       sumbit_btn.classList.add('running');
-
     }
   }
 </script>
@@ -68,7 +66,7 @@ textarea {
       <!-- Header and Galiphy introduction -->
     <div class="w3-container w3-twothird" style="padding-right: 30px">
       <h2 id="h1results"><b><font color="941751">Welcome to Galiphy!</font></b></h2>
-      Galiphy gives a prediction of novel human genes that have a similar function to your genes of interest. The only thing needed to run Galiphy for your research or clinical interest, is a simple list of human genes. This tool uses the assumption that genes sharing the same pathway have a similar phenotype 'profile' when those genes are defect. <br>
+      Galiphy gives a prediction of novel human genes that have a similar function to your genes of interest. The only thing needed to run Galiphy for your research or clinical interest, is a simple list of human genes. This tool uses the assumption that genes that somehow share a function in the cell have a similar phenotype 'profile'. <br>
       By entering genes you are learning the algorithm what phenotypes are typical for your pathway or disease of interest. Then Galiphy returns genes with scores depicting how much the genes are fitting the phenotype 'profile'. High scoring genes that were not in your initial gene list are your novel genes.
     </div>
 
@@ -147,13 +145,47 @@ textarea {
 
 <!-- Text area explanation of Galiphy  -->
   <div class="w3-container w3-dark-grey">
-      <h3> Galiphy summary </h3>
-      Galiphy prioritizes genes using an elegant algorithm and data from the 
-      <a href="https://hpo.jax.org/app/" class="w3-text-green w3-hover-text-red" target="_blank">Human Phenotype Ontology (HPO)</a>
-      database. This database annotates human phenotypes to {{ genes_in_HPO }} human gene defects, offering interesting computational analyses. The algorithm of Galiphy uses the frequencies of phenotypes among the gene defects to generate scores. 
-      There is a tutorial and example section on the <a href="{{ url_for('help') }}" class="w3-text-green w3-hover-text-red" >Help</a> page to guide you through this tool and the algorithm behind it.
-      <br><br>
-
+      <h2><b>What does Galiphy do?</b></h2>
+      <div class="w3-container w3-twothird">
+        <h4>Super short explanation</h4>
+        <table id="summary" style="font-size:0.9em">
+          <tr>
+            <td>Goal</td>
+            <td>finding new candidate genes associated with your cellular function of interest</td>
+          </tr>
+          <tr>
+            <td>Source</td>
+            <td>phenotype database HPO (Human Phenotype Ontology), links phenotypes to gene defects</td>
+          </tr>
+          <tr>
+            <td>Input</td>
+            <td>a list of genes that share a cellular function (do not enter candidate genes here)</td>
+          </tr>
+          <tr>
+            <td>Algorithm</td>
+            <td>based on frequency of phenotypes among the input genes</td>
+          </tr>
+          <tr>
+            <td>Mid outcome</td>
+            <td>all phenotypes in the HPO database are scored</td>
+          </tr>
+          <tr>
+            <td>Final outcome</td>
+            <td>all {{ genes_in_HPO }} genes in the HPO database are scored</td>
+          </tr>
+            <tr>
+            <td>Conclusion</td>
+            <td>genes that score high probably have a similar cellular function as your input genes, and thus are your candidate genes</td>
+          </tr>
+        </table>     
+      </div> 
+      <div class="w3-container w3-threequarter">
+        <h4>Further explanation:</h4>        
+        <ul>
+          <li><a href="https://hpo.jax.org/app/" class="w3-text-green w3-hover-text-red" target="_blank">Human Phenotype Ontology</a> phenotype database (abbreviated to HPO)</li>
+          <li><a href="{{ url_for('help') }}" class="w3-text-green w3-hover-text-red" >Help page</a> contains FAQ, tutorial and example section</li>
+        </ul>
+      </div>
       <div class="w3-container w3-half">
         <h4><b> Input: gene list </b></h4>
         <h5 class="w3-bottombar w3-border-purple">Gene list of interest</h5>
@@ -171,13 +203,13 @@ textarea {
         <h5 class="w3-bottombar w3-border-blue">1. Phenotype scored</h5>
         <p>
           Based on frequencies of phenotypes among the query genes, all phenotypes are given a score. 
-          This files contains a list of all phenotypes in HPO each with their frequency among the query and non-query genes, and phenotype score (PS). Interesting for the clinicians to look for the most typical phenotypes of the query list.
+          This files contains a list of all phenotypes in HPO each with their frequency among the query and non-query genes, and phenotype score. Interesting for the clinicians to look for the most typical phenotypes of the query list.
         </p>
       
         <h5 class="w3-bottombar w3-border-green">2. Genes scored</h5>
         <p>
           Based on the phenotype scores of the phenotypes associated to a gene, all genes are given a score.
-          This file contains a list of all genes in HPO each with their gene score (GS).
+          This file contains a list of all genes in HPO each with their gene score.
           Most interesting file for researchers and clinicians. Genes that score high and are not in the query, are your novel genes of interest. 
         </p>
 
