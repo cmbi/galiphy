@@ -1,7 +1,14 @@
 import numpy as np
 import math
-from matplotlib import pylab
-import pylab as plt
+
+# Changing function of phenotype scoring to make the fault scoring right. 
+# Every time the q=0, the score of low nq numbers end up in too high 
+# phenotype scores, i.e. positive scores. 
+
+# Possible solutions: 
+# subsetting nQ with sigmoid function
+# subsetting nQ with linear function
+# normalizing score, when nq=1, PS should be zero
 
 
 def sigmoid(x):
@@ -52,46 +59,3 @@ print "formula_lin_zerocorr: ", Phenotype_score_lin_zerocorr
 
 
 
-
-
-
-
-"""
-mySamples = []
-mySigmoid = []
-
-# generate an Array with value ???
-# linespace generate an array from start and stop value
-# with requested number of elements. Example 10 elements or 100 elements.
-# 
-
-x = plt.linspace(-1,20,100)
-
-# prepare the plot, associate the color r(ed) or b(lue) and the label 
-plt.plot(x, sigmoid(x), 'r', label='sigmoid minus 8')
-
-# Draw the grid line in background.
-plt.grid()
-
-# Title & Subtitle
-plt.title('Sigmoid Function')
-plt.suptitle('Sigmoid')
-
-# place the legen boc in bottom right of the graph
-plt.legend(loc='lower right')
-
-# write the Sigmoid formula
-#plt.text(4, 0.8, r'$\sigma(x)=\frac{1}{1+e^{-x}}$', fontsize=15)
-
-#resize the X and Y axes
-plt.gca().xaxis.set_major_locator(plt.MultipleLocator(1))
-plt.gca().yaxis.set_major_locator(plt.MultipleLocator(0.1))
- 
-
-# plt.plot(x)
-plt.xlabel('X Axis')
-plt.ylabel('Y Axis')
-
-# create the graph
-plt.show()
-"""
