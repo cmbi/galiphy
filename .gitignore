@@ -1,3 +1,5 @@
 *.pyc
+db_directory.txt
 output/*
 .DS_Store
+.gitignore

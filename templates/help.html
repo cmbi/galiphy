@@ -189,50 +189,50 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
             </p>
           </div>
         </div>
-        <div class="v1">
-          <h4>Mathematics of Galiphy</h4>
-          <div class="w3-container">
-            Now that you have a feeling of the scores, I will introduce you to the exact formula behind the phenotype scores.
-            The probability of finding any phenotype amongst the query list is dependent on the lenght of the query gene list. So if HPO contains a total of {{ genes_in_HPO }} genes, and the query list contains 393 genes, the non-query list has {{ genes_in_HPO - 393 }} genes.
-          </div> <br>
-          <div class="w3-container">
-            <h6 style="margin-left:3em"><b>The formula</b></h6>
-            <div class="w3-container w3-quarter" style="text-align:right">
-              <br>Example numbers<br>
-              <i>
-                q = 3 of Q = 393 <br>
-                nq = 32 of nQ = {{ genes_in_HPO - 393 }} <br>
-                tot = 35 of T = {{ genes_in_HPO }}
-              </i>
-            </div>
-            <div class="w3-container w3-third" style="min-width: 300px">
-              <br><br>
-              <img src="{{ url_for('static', filename='formula1.png') }}" style="width:280px">
-              <br><br>
-            </div>
-            <div class="w3-container w3-threequarter">
-              <br>
-              Where q is the abundance of the phenotype among the query gene list Q, and nq is the abundance of the phenotype among the non-query gene list nQ. 
-            <br><br>
-            Note: If one of the variables is zero, a mathematical error must be prevented. 
-              <font color=#45A9A6>
-                <span class="tooltip_h">Read
-                  <span class="tooltiptext_h" style="font-size:0.75em">
-                    When a phenotype is not found among the query genes (<b>"q"</b>) or the non-query genes (<b>"nq"</b>), <b>zero is replaced by 0.1</b> to prevent mathematical errors (due to division by zero for <b>nq</b>=0, and the undefined logarithm of zero for <b>q</b>=0).
-                  </span>
-                </span>
-              </font>
-              how.
-            </div>
+        
+        <h4>Mathematics of Galiphy</h4>
+        <div class="w3-container">
+          Now that you have a feeling of the scores, I will introduce you to the exact formula behind the phenotype scores.
+          The probability of finding any phenotype amongst the query list is dependent on the lenght of the query gene list. So if HPO contains a total of {{ genes_in_HPO }} genes, and the query list contains 393 genes, the non-query list has {{ genes_in_HPO - 393 }} genes.
+        </div> <br>
+        <div class="w3-container">
+          <h6 style="margin-left:3em"><b>The formula</b></h6>
+          <div class="w3-container w3-quarter" style="text-align:right">
+            <br>Example numbers<br>
+            <i>
+              q = 3 of Q = 393 <br>
+              nq = 32 of nQ = {{ genes_in_HPO - 393 }} <br>
+              tot = 35 of T = {{ genes_in_HPO }}
+            </i>
           </div>
-          <br>
-          <div class="w3-container">
-            <p style="text-align:right; color:grey" >
-            You can now calculate the phenotype score of this example yourself. You can - without touching any calculator if you are a bit familiar with logarithms - already guess whether the score would be lower than -4, higher than 4 or in between.  <br>
-            psst.... &#161;&#613;&#387;no&#613;&#647; &#654;&#633;&#647; poo&#387; '9 puno&#633;&#592; s&#7433; &#633;&#477;&#653;su&#592; &#477;&#613;&#647; no&#654; ll&#477;&#647; u&#592;&#596; I</p>
-            So the phenotype scoring file can provide you with information about which phenotypes are most typical among your query gene list. Be aware that the scores of the phenotypes that occur only a few times in total are less reliable. 
+          <div class="w3-container w3-third" style="min-width: 300px">
+            <br><br>
+            <img src="{{ url_for('static', filename='formula1.png') }}" style="width:280px">
+            <br><br>
+          </div>
+          <div class="w3-container w3-threequarter">
+            <br>
+            Where q is the abundance of the phenotype among the query gene list Q, and nq is the abundance of the phenotype among the non-query gene list nQ. 
+          <br><br>
+          Note: If one of the variables is zero, a mathematical error must be prevented. 
+            <font color=#45A9A6>
+              <span class="tooltip_h">Read
+                <span class="tooltiptext_h" style="font-size:0.75em">
+                  When a phenotype is not found among the query genes (<b>"q"</b>) or the non-query genes (<b>"nq"</b>), <b>zero is replaced by 0.1</b> to prevent mathematical errors (due to division by zero for <b>nq</b>=0, and the undefined logarithm of zero for <b>q</b>=0).
+                </span>
+              </span>
+            </font>
+            how.
           </div>
         </div>
+        <br>
+        <div class="w3-container">
+          <p style="text-align:right; color:grey" >
+          You can now calculate the phenotype score of this example yourself. You can - without touching any calculator if you are a bit familiar with logarithms - already guess whether the score would be lower than -4, higher than 4 or in between.  <br>
+          psst.... &#161;&#613;&#387;no&#613;&#647; &#654;&#633;&#647; poo&#387; '9 puno&#633;&#592; s&#7433; &#633;&#477;&#653;su&#592; &#477;&#613;&#647; no&#654; ll&#477;&#647; u&#592;&#596; I</p>
+          So the phenotype scoring file can provide you with information about which phenotypes are most typical among your query gene list. Be aware that the scores of the phenotypes that occur only a few times in total are less reliable. 
+        </div>
+
       </div>
       <br><br>
 

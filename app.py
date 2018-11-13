@@ -13,6 +13,12 @@ import re
 _log = logging.getLogger(__name__)
 app = Flask(__name__)
 
+def openfile(file):
+    with open(file, 'r') as readfile:
+        for line in readfile:
+            line = line.replace('\n','')
+            return line
+
 
 def countgenes():
     """
@@ -20,11 +26,11 @@ def countgenes():
     i.e. the number of genes in the latest HPO version. 
     This (int) number is returned.
     """
-    GENES_IN_HPO = 'GENES_IN_HPO.txt'
-    with open(GENES_IN_HPO, 'r') as readfile:
-        for genes_in_HPO in readfile:
-            genes_in_HPO = int(genes_in_HPO)
-            return genes_in_HPO
+    directory = openfile('db_directory.txt')
+    no_genes_file = directory+'GENES_IN_HPO.txt'
+    GENES_IN_HPO = openfile(no_genes_file)
+    return int(GENES_IN_HPO)
+
 ## system information and timestamp of HPO database file. To find out which version of HPO is used.
 # print "system: ", platform.system()
 # if platform.system() == 'Windows':

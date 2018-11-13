@@ -220,6 +220,13 @@ def scoregenes(phenscores_dict, genestophen_dict, gene_dict, output_genes):
     genescores_df.to_csv(output_genes,sep='\t')
     return genescores_df
 
+def openfile(file):
+    with open(file, 'r') as readfile:
+        for line in readfile:
+            line = line.replace('\n','')
+            print type(line)
+            return line
+
 def tool11(filehandle):
     """
     Requesthandler
@@ -231,7 +238,8 @@ def tool11(filehandle):
     """
 
     # /home/galiphy/
-    HPOfilename = "ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt"
+    
+    HPOfilename = openfile('db_directory.txt')+"ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt"
 
     # Step 1: Query checking
     ## if none of the genes are valid human genes, the tool cannot be run 
