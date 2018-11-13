@@ -13,7 +13,6 @@ files, the client can find information about candidate genes.
 
 See [requirements.txt](requirements.txt).
 
-
 ### Dependencies
 
 Phenotype database downloaded regularly from [HPO](http://compbio.charite.de/jenkins/job/hpo.annotations.monthly/lastSuccessfulBuild/artifact/annotation/ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt)
@@ -28,6 +27,10 @@ Phenotype database downloaded regularly from [HPO](http://compbio.charite.de/jen
 ## Reference
 
 See [reference page](https://www3.cmbi.umcn.nl/galiphy/reference).
+
+### Online access
+
+Runnning on [cmbi.umcn.nl/galiphy](https://www3.cmbi.umcn.nl/galiphy)
 
 ### Versioning
 
