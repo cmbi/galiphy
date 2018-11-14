@@ -13,6 +13,9 @@ import re
 _log = logging.getLogger(__name__)
 app = Flask(__name__)
 
+from middleware import ReverseProxied
+app.wsgi_app = ReverseProxied(app.wsgi_app)
+
 def openfile(file):
     with open(file, 'r') as readfile:
         for line in readfile:
