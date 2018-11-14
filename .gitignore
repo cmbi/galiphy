@@ -2,4 +2,5 @@
 db_directory.txt
 output/*
 .DS_Store
-.gitignore
+Dockerfile
+run.sh
