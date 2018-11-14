@@ -69,7 +69,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
     <div class="w3-container">
       <p>
         <h5><b><font color="703093">Q1 How do I pronounce Galiphy?</font></b></h5>
-        The last syllable has the same pronounciation as the verb '<b>fry</b>' but then without the 'r'.
+        The last syllable has the same pronounciation as the verb '<b>fly</b>' but then without the 'l'.
       </p>
       <p>
         <h5><b><font color="703093">Q2 Is Galiphy worth exploring for me?</font></b></h5>
@@ -137,8 +137,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
     <div class="w3-container">
       <h3 class="w3-bottombar w3-border-white"><b>Step 1: </b>Gene list</h3>
       <h5><b><font color="009193"> What Galiphy does: </font></b></h5>
-      With the input, a list of genes, Galiphy recognizes different types of gene names (entrez gene names, ensembl gene names, gene symbols and gene IDs), and removes duplicates and not recognized genes. 
-      From this filtered list, Galiphy makes a HPO gene list, which comprises the genes found in the <a href="https://hpo.jax.org/app/" class="w3-text-green w3-hover-text-red" target="_blank"> HPO database</a>. The Human phenotype ontology (HPO) database has phenotypes described for {{ genes_in_HPO }} gene defects. 
+      With the input, a list of genes, Galiphy recognizes different types of gene names (entrez gene names, ensembl gene names, gene symbols and gene IDs). 
+      Not all recognized genes are listed in the <a href="https://hpo.jax.org/app/" class="w3-text-green w3-hover-text-red" target="_blank"> HPO database</a>. Galiphy drops genes from your input gene list if they are not in HPO. 
 
       <h5><b><font color="074080"> What you should do: </font></b></h5>
       Provide a gene list in the format of entrez gene, ensembl gene, gene symbol or gene ID seperated by enters, comma's or spaces. Click the submit button. 
@@ -148,7 +148,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
 
       <h3 class="w3-bottombar w3-border-white"><b>Step 2: </b> Calculations</h3>
       <h5><b><font color="009193"> What Galiphy does: </font></b></h5>
-      Galiphy calculates a score for every gene. To get to this score, it takes all phenotypes, finds how often the phenotype occurs in the users gene list and how often it occurs in the rest of the HPO database. Galiphy generates a phenotype score for each phenotype in the database. Then, by addition of all scores of the phenotypes that belong to one gene, a gene score is generated. See more about scoring in step 4: Interpretation of the data.
+      Galiphy will start calculating. First it takes all phenotypes, finds how often the phenotype occurs in the query and how often it occurs in the rest of the HPO database. Galiphy generates a phenotype score for each phenotype in the database. Then, by addition of all scores of the phenotypes that belong to one gene, a gene score is generated. See more about scoring in step 4: Interpretation of the data.
 
       <h5><b><font color="074080"> What you should do: </font></b></h5>
       Wait 5 seconds.
@@ -163,7 +163,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
       Hit the download button to obtain all files; phenotype scores, the gene scores and the gene-to-phenotype file.
       <br><br>
 
-      <h3 id="step4" class="w3-bottombar w3-border-white"><b>Step 4: </b> Interpretation of the data</h3>
+      <h3 id="step4" class="w3-bottombar w3-border-white"><b>Step 4: </b> Interpretation of the results</h3>
       <h5><b><font color="009193"> What Galiphy does: </font></b></h5>
       He is done, he can rest now.
 
@@ -189,7 +189,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
             </p>
           </div>
         </div>
-        
+
         <h4>Mathematics of Galiphy</h4>
         <div class="w3-container">
           Now that you have a feeling of the scores, I will introduce you to the exact formula behind the phenotype scores.

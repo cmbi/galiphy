@@ -30,7 +30,7 @@ See [reference page](https://www3.cmbi.umcn.nl/galiphy/reference).
 
 ### Online access
 
-Runnning on [cmbi.umcn.nl/galiphy](https://www3.cmbi.umcn.nl/galiphy)
+Running on [cmbi.umcn.nl/galiphy](https://www3.cmbi.umcn.nl/galiphy)
 
 ### Versioning
 
