@@ -1,6 +1,6 @@
 *.pyc
 db_directory.txt
-output/*
+output/
 .DS_Store
 Dockerfile
 run.sh
