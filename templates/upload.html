@@ -64,10 +64,13 @@ textarea {
   <div class="w3-container">
 
       <!-- Header and Galiphy introduction -->
-    <div class="w3-container w3-twothird" style="padding-right: 30px">
+    <div class="w3-container w3-twothird" style="padding-right: 55px;padding-left: 20px">
       <h2 id="h1results"><b><font color="941751">Welcome to Galiphy!</font></b></h2>
-      Galiphy gives a prediction of novel human genes that have a similar function to your genes of interest. The only thing needed to run Galiphy for your research or clinical interest, is a simple list of human genes. This tool uses the assumption that genes that somehow share a function in the cell have a similar phenotype 'profile'. <br>
-      By entering genes you are learning the algorithm what phenotypes are typical for your pathway or disease of interest. Then Galiphy returns genes with scores depicting how much the genes are fitting the phenotype 'profile'. High scoring genes that were not in your initial gene list are your novel genes.
+      <p>
+        <b>Galiphy gives a prediction of novel human genes that have a similar function to your genes of interest.</b>
+      </p>
+      The only thing needed to run Galiphy for your research or clinical interest, is a simple list of human genes. This tool uses the assumption that genes that somehow share a function in the cell have a similar phenotype 'profile'. <br>
+      By entering genes you are learning the algorithm what phenotypes are typical for your pathway or disease of interest. Galiphy returns a list of genes with scores. These depict how much each gene is fitting the phenotype 'profile'. High scoring genes that were not in your initial gene list are your candidate genes.
     </div>
 
       <!-- Client input field, for input to tool (form: one textarea and one submit button) with hoverable example inputs -->
@@ -155,7 +158,7 @@ textarea {
           </tr>
           <tr>
             <td>Source</td>
-            <td>phenotype database HPO (Human Phenotype Ontology), links phenotypes to gene defects</td>
+            <td>database HPO (Human Phenotype Ontology) links phenotypes to {{ genes_in_HPO }} gene defects</td>
           </tr>
           <tr>
             <td>Input</td>
@@ -190,33 +193,34 @@ textarea {
         <h4><b> Input: gene list </b></h4>
         <h5 class="w3-bottombar w3-border-purple">Gene list of interest</h5>
         <p>
-        	Provide a gene list that preferably share a function or effect when defect.
+        	The input genes must have a functional connection to each other. <br>
           The more genes you provide, the better the algorithm can predict.
         	For example, this tool was developed to find novel mitochondrial 
         	proteins, i.e. genes not yet present among the
         	to <a href="https://www.broadinstitute.org/scientific-community/science/programs/metabolic-disease-program/publications/mitocarta/mitocarta-in-0" class="w3-text-green w3-hover-text-red" target="_blank">Mitocarta</a> list. <br>
-          Note that Galiphy runs with the genes that are listed in HPO. Which on average results in query genes in the algorithm half the length of your input list.  
+          Note that Galiphy can only use genes that are listed in the phenotype database HPO as input. Which on average means that only half the length of your input gene list is run through the actual algorithm. 
         </p>
       </div>
       <div class="w3-container w3-half">
         <h4> <b> Output: 3 files</b></h4>
         <h5 class="w3-bottombar w3-border-blue">1. Phenotype scored</h5>
         <p>
-          Based on frequencies of phenotypes among the query genes, all phenotypes are given a score. 
-          This files contains a list of all phenotypes in HPO each with their frequency among the query and non-query genes, and phenotype score. Interesting for the clinicians to look for the most typical phenotypes of the query list.
+          The phenotype scoring is based on frequencies of phenotypes in the phenotype database HPO. <br>
+          This file contains all phenotypes with their scores and their frequencies in and outside the input gene list.<br>
+          <i>Interesting for the clinicians</i> to look for the most typical phenotypes of the query list.
         </p>
       
         <h5 class="w3-bottombar w3-border-green">2. Genes scored</h5>
         <p>
-          Based on the phenotype scores of the phenotypes associated to a gene, all genes are given a score.
-          This file contains a list of all genes in HPO each with their gene score.
-          Most interesting file for researchers and clinicians. Genes that score high and are not in the query, are your novel genes of interest. 
+          The gene scoring is based on the previous file.<br>
+          This file contains all {{ genes_in_HPO }} genes in HPO with their gene scores.<br>
+          <i>Most interesting file for researchers and clinicians.</i> Genes that score high and are not in the query, are your novel genes of interest.
         </p>
 
         <h5 class="w3-bottombar w3-border-myred">3. How genes got their scores</h5>
         <p>
-          This output file contains all genes and all its phenotypes as assigned by HPO. 
-          This allows an insight on how the genes got their score and what phenotypes each gene has.
+          This output file contains all {{ genes_in_HPO }} genes together with their HPO phenotypes (and phenotype frequencies and phenotype scores). <br>
+          This file is mostly for insight, to see what happened in the algorithm between scoring of phenotypes (file 1) and scoring of genes (file 2). It shows how genes got their score as the gene score is a result of adding all its phenotype scores.
         </p>
         <br><br><br><br><br>
 
