@@ -14,10 +14,10 @@ import math
 def sigmoid(x):
     return (1 / (1 + float(0.0005)*(np.exp(-(x-8)))))
 
-q = 0
-Q = 13
+q = 3
+Q = 393
 
-nq = 4
+nq = 32
 nQ = 3777 - Q
 print "q = %i\n Q = %i\n nq = %i\n nQ = %i\n"%(q,Q,nq,nQ)
 

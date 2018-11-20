@@ -69,7 +69,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
     <div class="w3-container">
       <p>
         <h5><b><font color="703093">Q1 How do I pronounce Galiphy?</font></b></h5>
-        The last syllable has the same pronounciation as the verb '<b>fly</b>' but then without the 'l'.
+        The last syllable is pronounced the same as '<b>fly</b>' but without the 'l'.
       </p>
       <p>
         <h5><b><font color="703093">Q2 Is Galiphy worth exploring for me?</font></b></h5>
@@ -81,31 +81,37 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
       </p>
       <p id="Q3">
         <h5><b><font color="703093">Q3 What kind of input is accepted?</font></b></h5>
-          <b>Format</b><br>
-          Accepted formats are gene names (symbol), Entrez gene IDs and Ensembl gene IDs, e.g. COX4I1P2, 652170 and ENSG00000228869, respectively. A list of genes with enter or space as seperator. Gene IDs are the advised format, as they are most easily recognized and least prone to errors.<br>
-          <b> Ensembl versions</b><br>
-          The number behind the dot in the Ensembl gene ID (e.g. ENSG00000228869.1) should be removed in your query.<br>
-          <b> Human genes </b><br>
-          This tool can only run with human genes. <br>
+          Human genes in the format of:
+          <ul>
+            <li><b>Gene name (symbol)</b>: this is a risky format as some genes have symbol synonyms.</li>
+            <li><b>Entrez gene ID</b>: <u>this is the advised format</u>.</li>
+            <li><b>Ensemble gene ID</b>: e.g. ENSG00000228869.1 but always without version number behind the dot.</li>
+          </ul>
+          Seperated by enters or spaces.
 
       </p>
       <p id="Q4">
         <h5><b><font color="703093">Q4 How do I get a gene list?</font></b></h5>
-        Good question. As you need a larger gene list to get a better prediction, try to gather genes that share a pathway, cellular function, cellular system, disease or co-expression. Maybe there is already a gene list there for your system of interest, like on wikipedia, OMIM, KEGG pathways, Reactome, WeGET etc.
+        Good question. As you need a larger gene list to get a better prediction, try to gather genes that share a pathway, cellular function, cellular system, disease or co-expression. Maybe there is already a gene list there for your system of interest, like on <a href='https://www.wikipathways.org/index.php/WikiPathways' target='_blank'>WikiPathways</a>, <a href='https://www.omim.org' target='_blank'>OMIM</a>, <a href='https://coexpression.cmbi.umcn.nl/about' target='_blank'>WeGET</a>, <a href='https://www.genome.jp/kegg/pathway.html' target='_blank'>KEGG pathways</a>, <a href='https://reactome.org' target='_blank'>Reactome</a> etc.
       </p>
       <p>
         <h5><b><font color="703093">Q5 Is my gene list too short? </font></b></h5>
-        What has to be clarified first is that not all genes that you enter will run through the prediction algorithm. Some genes will be dropped from the query because they are not listed in the phenotype database HPO. Mostly around half the genes are dropped.<br>
-        Furthermore, the algorithm tends to have a better prediction power with the following factors: abundant phenotype annotation of the query genes, similarity of the phenotypes among the query genes, and the length of the query gene list. <br>
-        Take all of the above into consideration, and always look at the output critically. Try to end up with at least 10 genes that are listed in HPO. More genes is always better. 
+        It has to be clarified first that not all genes that you enter will run through the algorithm. Some genes will be dropped from the query because they are not listed in the phenotype database HPO. Often around half the genes are dropped.<br>
+        Furthermore, the algorithm tends to have better prediction power with the following factors: 
+        <ul>
+          <li>abundant phenotype annotation of the query genes;</li>
+          <li>similarity of the phenotypes among the query genes;</li>
+          <li>and the length of the query gene list.</li>
+        </ul>
+        Take all of the above into consideration and always look at the output critically. Try to end up with at least 10 genes that are listed in HPO. More genes is always better. 
       </p>
       <p>
         <h5><b><font color="703093">Q6 What is the easiest way to view the output files?</font></b></h5>
-        Open Excell, open the scoring files from here (File > Open) or right-click the file in your Download folder and click 'open in Excel'. Then press ctr+a and click Insert > Table, this way you can sort the columns easily. 
+        Open Excel, open the scoring files from here (File > Open) or right-click the file in your Download folder and click 'open in Excel'. Then press ctr+a and click Insert > Table. This way you can sort the columns easily. 
       </p>
       <p id="Q7">
         <h5><b><font color="703093">Q7 What can I do to validate the results? </font></b></h5>
-        Like in the Galiphy article, you can use several methods:<br><br>
+        Like in the <a href="{{ url_for('reference') }}" class="w3-text-green w3-hover-text-red" >Galiphy article</a>, you can use several methods:<br><br>
         <b> Statistical methods:</b>
         <ul>
           <li>GSEA, gene set enrichment analysis.</li>
@@ -116,10 +122,10 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
         <b>Literature:</b><br>
         Look up the highest scoring non-query genes in the literature.<br><br>
         <b>Functional correlation:</b><br>
-        Look up functional correlation of the highest scoring non-query genes in the literature.
+        Look up functional correlation of the highest scoring non-query genes in the literature or use the following tools:
         <ul>
-          <li>WeGET: co-expression tool</li>
-          <li>STRING: network analysis and enrichment among KEGG pathways and GO biological processes.</li>
+          <li>WeGET: correlation through co-expression</li>
+          <li>STRING: correlation through occurence in KEGG pathways and GO biological processes.</li>
         </ul>
       </p>
 
@@ -137,18 +143,18 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
     <div class="w3-container">
       <h3 class="w3-bottombar w3-border-white"><b>Step 1: </b>Gene list</h3>
       <h5><b><font color="009193"> What Galiphy does: </font></b></h5>
-      With the input, a list of genes, Galiphy recognizes different types of gene names (entrez gene names, ensembl gene names, gene symbols and gene IDs). 
+      Galiphy recognizes different types of gene names (entrez gene names, ensembl gene names, gene symbols and gene IDs). 
       Not all recognized genes are listed in the <a href="https://hpo.jax.org/app/" class="w3-text-green w3-hover-text-red" target="_blank"> HPO database</a>. Galiphy drops genes from your input gene list if they are not in HPO. 
 
       <h5><b><font color="074080"> What you should do: </font></b></h5>
-      Provide a gene list in the format of entrez gene, ensembl gene, gene symbol or gene ID seperated by enters, comma's or spaces. Click the submit button. 
+      Provide a gene list using gene symbols, entrez gene IDs or ensembl gene IDs seperated by enters or spaces. Click the submit button. 
       <br>
       <img src="{{ url_for('static', filename='Tutorial_step1_mitocarta.png') }}" title="This is an image" style="width:236px">
       <br><br>
 
       <h3 class="w3-bottombar w3-border-white"><b>Step 2: </b> Calculations</h3>
       <h5><b><font color="009193"> What Galiphy does: </font></b></h5>
-      Galiphy will start calculating. First it takes all phenotypes, finds how often the phenotype occurs in the query and how often it occurs in the rest of the HPO database. Galiphy generates a phenotype score for each phenotype in the database. Then, by addition of all scores of the phenotypes that belong to one gene, a gene score is generated. See more about scoring in step 4: Interpretation of the data.
+      Galiphy starts its scoring algorithm. First it generates a phenotype score for each phenotype in the database. Galiphy takes all phenotypes, determines how often each phenotype occurs in the query and how often it occurs in the rest of the HPO database. The phenotype score formula uses these frequencies to generate the phenotype score. Then, Galiphy adds all the scores of the phenotypes that belong to one gene which results in the gene score. More details about the scoring in step 4: Interpretation of the data.
 
       <h5><b><font color="074080"> What you should do: </font></b></h5>
       Wait 5 seconds.
@@ -160,7 +166,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
       Galiphy writes your results in three files, the phenotype scores, the gene scores and the gene-to-phenotype file. 
 
       <h5><b><font color="074080"> What you should do: </font></b></h5>
-      Hit the download button to obtain all files; phenotype scores, the gene scores and the gene-to-phenotype file.
+      Hit the download button to obtain all files; phenotype scores, the gene scores and the gene-to-phenotype file. It is important to take a look at the result page, in particular at column information of the files, input information and error alerts.
       <br><br>
 
       <h3 id="step4" class="w3-bottombar w3-border-white"><b>Step 4: </b> Interpretation of the results</h3>
@@ -172,32 +178,24 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
       <br><br>
 
       <div class="w3-container">
-        <h6><b>The phenotype scoring file</b></h6>
-        <div>
-          <div class="w3-container w3-twothird">
-            <br>
-            Shows you how each phenotype got its score. A high score means that the phenotype appears to be found relatively more often among your query genes. For example, a good scoring phenotype could be linked to 29 of your query genes (<b>"q"</b>) and to none of the non-query genes (<b>"nq"</b>). So in total (<b>"tot"</b>) it occurs 29 times in the HPO database. This results in the <b> Phenotype score </b> of 11.28. 
-            A bad scoring phenotype could have <b> "q" </b>= 0 <b> "nq" </b>= 228 <b> "tot" </b>= 228 which results in <b>Phenotype score</b> = -8.06. 
-            <p>
-              Keep reading to know what the 0.1's in the file are for.
-            </p>
-          </div>
-          <div class="w3-container w3-third">
-            <a href="{{ url_for('static', filename='Tutorial_Example_phenotype_scores.png') }}" target="_blank"><img src="{{ url_for('static', filename='Tutorial_Example_phenotype_scores.png') }}" style="width:300px"></a>
-            <p style="font-size:0.8em">
-              <i>Click on image to show full size in new window.</i>
-            </p>
-          </div>
+        <h5><b>The phenotype scoring file</b></h5>
+        <div class="w3-container w3-twothird">
+          The phenotype file shows you which phenotypes are most typical for your genes of interest. Besides the scores you should also look at the frequency columns to understand how typical a phenotype is. The probability of finding any phenotype amongst the query list is dependent on the lenght of the query gene list. So HPO consist of {{ genes_in_HPO }} genes and if the query list (<font class='formula'>Q</font>) contains 393 genes then the 'non-query list' (<font class='formula'>nQ</font>) has {{ genes_in_HPO - 393 }} genes.<br><br>
+          A high score means that the phenotype appears relatively often among your query genes. A good scoring phenotype could be linked to 29 of your query genes (<font class='formula'>q</font>) and to none of the non-query genes (<font class='formula'>nq</font>). This results in the Phenotype score of 11.28. <br><br>
+          Sometimes you encounter frequencies of 0.1, these were zeroes that changed to 0.1 to prevent mathematical error in the formula.<br>
+      
+        </div> 
+        <div class="w3-container w3-third">
+          <a href="{{ url_for('static', filename='Tutorial_Example_phenotype_scores.png') }}" target="_blank"><img src="{{ url_for('static', filename='Tutorial_Example_phenotype_scores.png') }}" style="width:300px"></a>
+          <p style="font-size:0.8em">
+            <i>Click on image to show full size in new window.</i>
+          </p><br><br><br><br>
         </div>
 
-        <h4>Mathematics of Galiphy</h4>
-        <div class="w3-container">
-          Now that you have a feeling of the scores, I will introduce you to the exact formula behind the phenotype scores.
-          The probability of finding any phenotype amongst the query list is dependent on the lenght of the query gene list. So if HPO contains a total of {{ genes_in_HPO }} genes, and the query list contains 393 genes, the non-query list has {{ genes_in_HPO - 393 }} genes.
-        </div> <br>
-        <div class="w3-container">
-          <h6 style="margin-left:3em"><b>The formula</b></h6>
-          <div class="w3-container w3-quarter" style="text-align:right">
+        <div class='w3-threequarter w3-white' style="margin-left:70px; margin-right: 70px;margin-top:20px;margin-bottom:20px;border: solid 6px #941751">
+          <h4 style="margin-left:4em; color:#941751"><b>The formula for phenotype scoring</b></h4>
+
+          <div class="w3-container w3-third" style="margin-left:30px;text-align:right">
             <br>Example numbers<br>
             <i>
               q = 3 of Q = 393 <br>
@@ -205,39 +203,41 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
               tot = 35 of T = {{ genes_in_HPO }}
             </i>
           </div>
-          <div class="w3-container w3-third" style="min-width: 300px">
+          <div class="w3-container w3-half" style="min-width: 300px;margin-right:30px">
             <br><br>
             <img src="{{ url_for('static', filename='formula1.png') }}" style="width:280px">
             <br><br>
           </div>
-          <div class="w3-container w3-threequarter">
+          <div class="w3-container">
             <br>
-            Where q is the abundance of the phenotype among the query gene list Q, and nq is the abundance of the phenotype among the non-query gene list nQ. 
-          <br><br>
-          Note: If one of the variables is zero, a mathematical error must be prevented. 
+            Where <font class='formula'>q</font> is the phenotype frequency among the query gene list <font class='formula'>Q</font> and <font class='formula'>nq</font> is the phenotype frequency among the non-query gene list <font class='formula'>nQ</font>.
+            <br><br>
+            Note: If one of the variables is zero, a mathematical error must be prevented. 
             <font color=#45A9A6>
               <span class="tooltip_h">Read
                 <span class="tooltiptext_h" style="font-size:0.75em">
-                  When a phenotype is not found among the query genes (<b>"q"</b>) or the non-query genes (<b>"nq"</b>), <b>zero is replaced by 0.1</b> to prevent mathematical errors (due to division by zero for <b>nq</b>=0, and the undefined logarithm of zero for <b>q</b>=0).
+                  When a phenotype is not found among the query genes (<font style="font-size:0.9rem" class='formula'>q</font>) or the non-query genes (<font style="font-size:0.9rem" class='formula'>nq</font>), <b>zero is replaced by 0.1</b> to prevent mathematical errors (due to division by zero for <font style="font-size:0.9rem" class='formula'>nq</font>=0, and the undefined logarithm of zero for <font style="font-size:0.9rem" class='formula'>q</font>=0).
                 </span>
               </span>
             </font>
             how.
           </div>
-        </div>
-        <br>
-        <div class="w3-container">
-          <p style="text-align:right; color:grey" >
-          You can now calculate the phenotype score of this example yourself. You can - without touching any calculator if you are a bit familiar with logarithms - already guess whether the score would be lower than -4, higher than 4 or in between.  <br>
-          psst.... &#161;&#613;&#387;no&#613;&#647; &#654;&#633;&#647; poo&#387; '9 puno&#633;&#592; s&#7433; &#633;&#477;&#653;su&#592; &#477;&#613;&#647; no&#654; ll&#477;&#647; u&#592;&#596; I</p>
-          So the phenotype scoring file can provide you with information about which phenotypes are most typical among your query gene list. Be aware that the scores of the phenotypes that occur only a few times in total are less reliable. 
+          <br>
+          <div class="w3-container">
+            <i>
+            The scoring is based on how many times one phenotype occurs in the query gene list compared to the rest of the genes. So 3 of the 393 query genes have the phenotype and 32 of the {{ genes_in_HPO - 393 }} non-query genes have the phenotype. When the relative frequency among both gene lists is almost the same, the phenotype is not typical nor atypical, thus a neutral score is favoured. Try to calculate the score for this example phenotype. </i>
+            <p style="text-align:right; color:#F0F0F0" >        
+              Psst.... The answer is 0.3
+            </p>
+            
+          </div>
         </div>
 
       </div>
       <br><br>
 
       <div class="w3-container">
-        <h6><b>The gene to phenotype file</b></h6>
+        <h5><b>The gene to phenotype file</b></h5>
         <div class="w3-container w3-half" style="min-width: 400px">
           <br>
           <a href= "{{ url_for('static', filename='Tutorial_Example_phen_to_gene.png') }}" target="_blank">
@@ -246,17 +246,22 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
         </div>
         <div class="w3-container w3-half">
           <br>
-          This file is meant to understand which phenotypes each gene has and how the gene score ended up the way it did. If you click the image, you can see the phenotype scores of two genes, ATP5F1A and ATP5F1E, which are both query genes. <b>The gene score is simply calculated by adding all the belonging phenotype scores.</b> You can observe how some phenotypes have little influence on the gene score (like <i>autosomal recessive inheritance</i>), some have some influence (like <i>nystagmus</i>), and only a few have high influence (<i>high pitched cry</i> and <i>decreased activity of mitochondrial ATP synthase complex</i>). 
+          This file allows you to see the phenotypes of each gene and how addition of phenotype scores resulted in a gene score. If you click the image you can see the phenotype scores of the two query genes ATP5F1A and ATP5F1E.<br><br>  
+          <b>The gene score is simply calculated by adding all the belonging phenotype scores.</b><br><br>
+          You can observe how some phenotypes have little influence on the gene score, like <i>autosomal recessive inheritance</i>. Some have some influence, like <i>nystagmus</i>. Only a few have high influence, like <i>high pitched cry</i> and <i>decreased activity of mitochondrial ATP synthase complex</i>. 
         </div>
       </div> 
       <br><br>
 
       <div class="w3-container">
-        <h6><b>The gene scoring file</b></h6>
+        <h5><b>The gene scoring file</b></h5>
         <div class="w3-container w3-twothird">
-          Shows the scores of the genes. The query column depicts whether the gene is (<b>1</b>) or is not (<b>0</b>) 
-          in your query gene list. This file is the main result for most research questions. As high scoring non-query genes are probably your genes of interest. <br>
-          Genes that have a high score have phenotypes that look very similar to the phenotypes of your input (query) genes. 
+          This file is the main result for most research questions.<br><br>
+          Shows the scores of all {{ genes_in_HPO }} genes present in HPO. Galiphy sorted the genes on score. In the image you can see the 17 highest scoring genes. The query column depicts whether the gene is (<font class='formula'>1</font>) or is not (<font class='formula'>0</font>) in your query gene list. <br><br>
+
+          High scoring genes have phenotypes very similar to the phenotypes of your query genes.          
+          Therefore, the non-query genes ranked high in this file are your candidate genes.<br><br>
+
         </div>
         <div class="w3-container w3-third">
           <a href="{{ url_for('static', filename='Tutorial_Example_gene_scores.png') }}" target="_blank">
@@ -281,24 +286,24 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
     <h2 id="example" class="w3-bottombar w3-border-myred" style="text-align:center"><b><font color="941751"><br>Example</font></b></h2>
     <div class="w3-container"> 
       <br>
-      Galiphy was made with <u>mitochondrial disorders (MD)</u> as our research interest. So in this example, the input is the <a href="https://www.broadinstitute.org/files/shared/metabolism/mitocarta/human.mitocarta2.0.html" class="w3-text-green w3-hover-text-red" target="_blank">Mitocarta list</a>, a list of 1158 genes of which their proteins are with strong support considered localized in the mitochondrion. Our goal is to find genes that are not yet listed in Mitocarta, but its gene defects appear to result in a similar phenotypic profile as the Mitocarta genes. Eventually, clinical experts can take these interesting novel genes into consideration in diagnostics and experimental validation.
+      We made Galiphy with mitochondrial disorders (MD) as our research interest. Our goal was to find genes associated to the mitochondrion but were not yet listed in Mitocarta. In this example the input is therefore <a href="https://www.broadinstitute.org/files/shared/metabolism/mitocarta/human.mitocarta2.0.html" class="w3-text-green w3-hover-text-red" target="_blank">Mitocarta2.0</a>, a list of 1158 genes. Their proteins are known to be localized in the mitochondrion. After using Galiphy, clinical experts took these interesting candidate genes into consideration in diagnostics and experimental validation.
       <br><br><br>
     </div>
     <div class="w3-container">
       <h3><b><font color="511794">Input</font></b></h3>
 
       <h6><b>Gene IDs over gene names</b></h6>
-      So there is already a large list available. Now if you download Mitocarta2.0, you can easily select one column and copy-paste it into the input field of Galiphy. If you choose to copy-paste the gene name column, which is a perfectly allowed input format, you will get dissapointed later. As you would hit the submit button and get to the results page, Galiphy would show you that a significant number of genes are not recognized. This is because some of the gene names are not up to date and are nowadays synonyms of genes. 
+      When you download Mitocarta2.0, you can easily select one column and copy-paste it into the input field of Galiphy on the home page. Copy-pasting the gene name column is allowed but will get you dissapointed later as Galiphy tells you on the result page that a significant number of genes are not recognized. This is because some of the gene names are not up to date and are nowadays synonyms of genes. 
       <br>
-      Therefore, I would recommend using the gene ID column in the Mitocarta file to copy-paste into the tool.
+      Therefore, we recommend you to use the gene ID column.
       <h6><b>Input evaluation</b></h6>
-      On the result page you can see which genes of the Mitocarta list were used by Galiphy and which not. Now that you used the gene ID column, all of the genes are recognized. Which does not imply that Galiphy uses all Mitocarta genes in its algorithm. As Galiphy uses the phenotype database HPO  which contains {{ genes_in_HPO }} genes, only the genes that are described in HPO can be used in Galiphy. So of the 1148 genes in Mitocarta, 393 genes are listed in HPO, which means that 765 genes are dropped. All the genes that Galiphy runs the algorithm with can be found in the result files. 
+      Galiphy can only run with the genes that are described in HPO. On the result page you can see which genes are found in HPO and which not. From the 1148 Mitocarta genes 393 genes are listed in HPO, so the other 765 genes are dropped from the algorithm.
       <br><br><br>
     </div>
     <div class="w3-container" id="example_results">
       <h3><b><font color="511794">Results</font></b></h3>
 
-      The following buttons would appear on your screen, click to download the three output files.
+      The following files are made by Galiphy:
       <div style="overflow:hidden">
         <br><br>
         <a href="{{ url_for('static', filename='Example_phen_scores_file.tsv') }}" class='blauw'>
@@ -306,7 +311,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
         </a>
         <span style="float:right">
           <a href="{{ url_for('static', filename='Example_phen_scores_image.png') }}" target="_blank" class='blauw'>
-            Or click here for an image of the file
+            Or click here for a screenshot of the file
           </a>
         </span>
         <br><br><br>
@@ -315,7 +320,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
         </a>
         <span style="float:right">
           <a href="{{ url_for('static', filename='Example_genes_to_phen_image.png') }}" target="_blank" class='rood'>
-          Or click here for an image of the file
+          Or click here for a screenshot of the file
           </a>
         </span>
         <br><br><br>
@@ -324,47 +329,48 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
         </a>
         <span style="float:right">
           <a href="{{ url_for('static', filename='Example_gene_scores_image.png') }}" target="_blank" class='groen'>
-            Or click here for an image of the file
+            Or click here for a screenshot of the file
           </a>
         </span>
         <br><br><br>
-        <font color="grey">For each file: if you open the file in Excel, press ctr+a and make a table, you can sort the columns easily.</font>
+        <font color="grey"><i>Open Downloads > right-click the file > open in Excel. In Excel, press ctr+a and make a table in order to sort the columns easily.</i></font>
         <br> 
         <div class="v1">
           <div class="v2">
             <div class="v3">
               <div style="margin:10px">
                 <h5 class="w3-bottombar w3-border-blue"><b>Phenotype scores</b></h5>
-                All phenotypes in HPO are given a score. The phenotypes with the highest scores can be seen as the ones that are most typical for <u>mitochondrial disorders (MD)</u>. You should look critical at this file because it could give you interesting information:
+                All phenotypes in HPO are given a score. The phenotypes with the highest scores can be seen as the ones that are most typical for mitochondrial disorders (MD). You should look critical at this file because it could give you interesting information:
                 <p>
-                  <b>Using clinical knowledge to eliminate query genes</b>
+                  <b>Using clinical knowledge to edit the query gene list</b>
                   <br>
-                  If you see a consistent number in the "q" column which according to your clinical knowledge is not a typical phenotype for in this case MD, you should consider to try to elimate these genes from your query list to get more reliable results. 
+                  If some phenotypes are not common for the disease according to your clinical knowledge, consider elimating the genes that are disrupting the quality of the phenotype profile from your query list in order to get more reliable results. <br>
+                  In our study, SDH gene defects caused two specific types of cancer. All six SDH genes were therefore removed from the query list. Galiphy was run again which resulted in better phenotype scoring. 
                 </p>
                 <p>
                   <b>Look for interesting numbers</b>
                   <br>
-                  If a phenotype that is clinically relevant to MD, but has one or more non-query genes assigned to, these could be interesting genes. In the next file you can find the answers to these particularities. 
+                  When a phenotype is clinically relevant to MD and only a few non-query genes assigned to it, pay attention to the non-query genes as they could be interesting genes. Find more information about these genes in the next file, 'genes to phenotypes'. 
                 </p>
                 <p>
                   <b>'Useless' phenotypes</b>
                   <br>
-                  Some phenotypes only occur once in the HPO database, and therefore get either a score of 6.428 or -0.216. These phenotypes are not causing any non-Mitocarta genes to have a higher gene score and therefore are not very valuable for most research questions.
+                  Some phenotypes only occur once in the HPO database. These phenotypes are not valueble for the scoring of the genes because they do not give information about how typical a phenotype is.
                 </p>
                 <p>
                   <b>Make plots</b>
                   <br>
-                  To get a good grip on which phenotype scores are exceptionally high or low, you could make a distribution plot of the scores. 
+                  Get an insight on how the phenotype scores are distributed and which scores are exceptionally high or low by making a distribution plot of the scores.
                 </p>
                 <br><br>
               </div>
             </div>
             <div style="margin:20px">
               <h5 class="w3-bottombar w3-border-myred"><b>Genes to phenotypes</b></h5>
-              All genes in HPO with their belonging phenotypes and their phenotype scores. This file tells you how each gene got its gene score, by showing all phenotypes it is associated with and their phenotype scores. The gene score is generated by adding these phenotype scores. Most likely, you will look at this file after you have curated the gene score file. You could look for the phenotypes that one specific gene of interest got.
+              In this file all genes in HPO are listed together with their phenotypes and phenotype scores. It tells you how each gene got its gene score as the score results from adding all phenotype scores. Most likely, you will look at this file after you have curated the gene score or the phenotype file. You could look for the phenotypes with which one specific gene of interest is associated to.
               <p>
-                <b>Look up interesting phenotypes</b><br>
-                If you sort on phenotypes, you can see which genes are assigned to that specific phenotype of interest. This way, you made a phenotype-to-gene file. 
+                <b>Reverse the file into phenotype to gene association</b><br>
+                If you sort on phenotypes you can see which genes are assigned to that specific phenotype of interest. This way, you created the reversed file, the phenotype to gene file. 
               </p>
               <p>
                 <b></b>
@@ -373,30 +379,46 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
             </div>
           </div>
           <div style="margin:30px"> <h5 class="w3-bottombar w3-border-green"><b>Gene scores</b></h5>
-            All genes in HPO with their gene scores.
+            Most important file for our research question. The genes that have a high gene score and are not in Mitocarta are our candidate genes. These genes got their high scores because the phenotypes they are associated with are similar to the phenotypes of the input genes.   
+            <p>
+              <b>Function of single candidate genes</b><br>
+              Use databases like <a href='https://www.genecards.org' class="w3-text-green w3-hover-text-red" target='_blank'>GeneCards</a> to get an overview of function, localization and diseases the gene is associated with. In the example file you can see that the highest scoring non-query gene is <a href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=MT-TS1&keywords=trns1' class="w3-text-green w3-hover-text-red" target='_blank'>TRNS1</a>, a mitochondrially encoded tRNA Serine gene. 
+            </p>
+            <p>
+              <b>Analysis of multiple candidate genes</b><br>
+              Look for correlation between the candidate genes. You could take the best 200 scoring non-query genes and put them into online tools like <a href='https://coexpression.cmbi.umcn.nl/about' class="w3-text-green w3-hover-text-red" target='_blank'>WeGET</a> co-expression or  with <a href='https://string-db.org' class="w3-text-green w3-hover-text-red" target='_blank'>String</a>'s enrichment analysis for KEGG pathways and GO biological processes. In the <a href="{{ url_for('reference') }}" class="w3-text-green w3-hover-text-red" >Galiphy article</a> you can find the results of these tools in appendix V and VI. 
+            </p>
+            <p>
+              <b>Edit your gene list again</b><br>
+              To make a more specific 'phenotype fingerprint' the query gene list was adjusted again (the first time is described in the phenotype file explanation above). This time, genes in the oxidative phosphorylation (OXPHOS) pathway were put in the query gene list in order to optimize prediction quality.  
+            </p>
             <p>
               <b>Make plots</b><br>
-              To see how your query genes score in comparison to the non-query genes, you could make a distribution plot. Like 
-              <a href="{{ url_for('static', filename='Figure1_plots.png') }}" class="w3-text-green w3-hover-text-red" target="_blank">
-                Figure 1
+              A distribution plot like <a href="{{ url_for('static', filename='Figure4_plots.png') }}" class="w3-text-green w3-hover-text-red" target="_blank">
+                Figure 4A and B
+              </a> shows you how your query genes score in comparison to the non-query genes.
+              An overview on how the genes are ranked can be seen in 
+              <a href="{{ url_for('static', filename='Figure5_plots.png') }}" class="w3-text-green w3-hover-text-red" target="_blank"> 
+                Figure 5B
               </a>
-              . Or to see how the genes are ranked now that they are sorted on gene score, make a plot like 
-              <a href="{{ url_for('static', filename='Figure2_plots.png') }}" class="w3-text-green w3-hover-text-red" target="_blank"> 
-                Figure 2
-              </a>
-              . These figures can also be found in the 
-              <a href="{{ url_for('static', filename='Galiphy_article_2018.pdf') }}" class="w3-text-green w3-hover-text-red" target="_blank">
-                Galiphy article
-              </a>. 
-            </p>
-            <p>
-              <b>Change your gene list</b>
-              <br>
-              As you might have noticed in Figure 2, there are three query lists that are compared to each other. This is because a few of the top scoring genes were associated to tumorous related phenotypes, which are not typical for MD. For this reason, six genes were removed from the query gene list, which resulted in more reliable gene scores. To make a more specific phenotype 'fingerprint' of mitochondrial disorders, genes that function in the oxidative phosphorylation (OXPHOS) pathway, were the third query gene list, named "SuperMito". 
-            </p>
+              .
+            </p>                        
+              <b></b><br>
+
+
             <br>
           </div>
-          </div>
+        </div>
+        <p>
+          <b>Statistical plots for validation of the prediction</b><br>
+          If you would like to use statistical methods to measure the quality of the Galiphy results, you can use the following analyses:       
+          <ul>
+            <li>GSEA, gene set enrichment analysis.</li>
+            <li>ROC, receiver operating characteristic curve. Area under curve (AUC) can be used as prediction evaluation.</li>
+            <li>Precision rank plot: precision (positive prediction) value vs. rank.</li>
+          </ul>
+          These can also be found in <a href="{{ url_for('static', filename='Figure5_plots.png') }}" class="w3-text-green w3-hover-text-red" target="_blank">Figure 5ACD</a> of the Galiphy article. 
+        </p>        
       </div>
     </div>
     <p>

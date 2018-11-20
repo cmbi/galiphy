@@ -64,13 +64,13 @@ textarea {
   <div class="w3-container">
 
       <!-- Header and Galiphy introduction -->
-    <div class="w3-container w3-twothird" style="padding-right: 55px;padding-left: 20px">
+    <div class="w3-container w3-twothird" style="padding-right: 30px">
       <h2 id="h1results"><b><font color="941751">Welcome to Galiphy!</font></b></h2>
       <p>
-        <b>Galiphy gives a prediction of novel human genes that have a similar function to your genes of interest.</b>
+        <b>Galiphy predicts new human genes that have a similar function to your genes of interest.</b>
       </p>
-      The only thing needed to run Galiphy for your research or clinical interest, is a simple list of human genes. This tool uses the assumption that genes that somehow share a function in the cell have a similar phenotype 'profile'. <br>
-      By entering genes you are learning the algorithm what phenotypes are typical for your pathway or disease of interest. Galiphy returns a list of genes with scores. These depict how much each gene is fitting the phenotype 'profile'. High scoring genes that were not in your initial gene list are your candidate genes.
+      The only thing needed to run Galiphy for your research or clinical interest, is a simple list of human genes. This tool assumes that genes sharing a cellular function have a similar phenotype 'profile'. <br>
+      By entering genes you are teaching the algorithm which phenotypes are typical for your genes of interest. Galiphy returns a list of scored genes. These scores depict how much each gene fits the phenotype 'profile'. High scoring genes that were not in your initial gene list are your candidate genes.
     </div>
 
       <!-- Client input field, for input to tool (form: one textarea and one submit button) with hoverable example inputs -->
@@ -110,7 +110,7 @@ textarea {
           </dt> 
           <!-- Textarea for the input -->
           <dt>
-            <textarea name="list_genes" rows=10 style="width: 200px" value="List of genes" id="textinput" form="input_form"></textarea>
+            <textarea name="list_genes" rows=10 style="width: 250px" value="List of genes" id="textinput" form="input_form"></textarea>
           
           <!-- Submit button. After clicking, content of textarea is sent to app.py and loading 'bouncing ball' animation starts -->
           
@@ -118,7 +118,7 @@ textarea {
               Submit
               <div class="ld ld-ball ld-bounce">
               </div>
-            </button><br><span style="color:#625E63">Read on &#8595;</span>
+            </button><span style="color:#625E63; float: right"> Read on &#8595;</span>
           </dt>
         </dl>
       </form>
@@ -139,7 +139,7 @@ textarea {
         </span>
         <ul style="padding-left:20px">
           <li>You are a clinical professional and interested in some candidate genes that are not yet described to be associated with a disease.</li>
-          <li>You are a researcher and looking for candidate genes not yet discovered to be in your pathway of interest.</li>
+          <li>You are a researcher and looking for candidate genes not yet confirmed to be in your pathway of interest.</li>
           <li>You are already working with genes that are underannotated and looking for more validation for your (clinical) lab experiments.</li>
         </ul>
       </i>
@@ -154,7 +154,7 @@ textarea {
         <table id="summary" style="font-size:0.9em">
           <tr>
             <td>Goal</td>
-            <td>finding new candidate genes associated with your cellular function of interest</td>
+            <td>find new candidate genes associated with your cellular function of interest</td>
           </tr>
           <tr>
             <td>Source</td>
@@ -162,7 +162,7 @@ textarea {
           </tr>
           <tr>
             <td>Input</td>
-            <td>a list of genes that share a cellular function (do not enter candidate genes here)</td>
+            <td>list of genes that share a cellular function (do not enter candidate genes here)</td>
           </tr>
           <tr>
             <td>Algorithm</td>
@@ -178,49 +178,49 @@ textarea {
           </tr>
             <tr>
             <td>Conclusion</td>
-            <td>genes that score high probably have a similar cellular function as your input genes, and thus are your candidate genes</td>
+            <td>genes with high scores probably have a similar cellular function as your input genes, and thus are your candidate genes</td>
           </tr>
         </table>     
       </div> 
       <div class="w3-container w3-threequarter">
         <h4>Further explanation:</h4>        
         <ul>
-          <li><a href="https://hpo.jax.org/app/" class="w3-text-green w3-hover-text-red" target="_blank">Human Phenotype Ontology</a> phenotype database (abbreviated as HPO)</li>
-          <li><a href="{{ url_for('help') }}" class="w3-text-green w3-hover-text-red" >Help page</a> contains FAQ, tutorial and example section</li>
+          <li><b><a href="https://hpo.jax.org/app/" class="w3-text-green w3-hover-text-red" target="_blank">Human Phenotype Ontology</a></b> phenotype database (abbreviated as HPO)</li>
+          <li><b><a href="{{ url_for('help') }}" class="w3-text-green w3-hover-text-red" >Help page</a></b> contains FAQ, tutorial and example section</li>
         </ul>
       </div>
       <div class="w3-container w3-half">
         <h4><b> Input: gene list </b></h4>
         <h5 class="w3-bottombar w3-border-purple">Gene list of interest</h5>
         <p>
-        	The input genes must have a functional connection to each other. <br>
-          The more genes you provide, the better the algorithm can predict.
-        	For example, this tool was developed to find novel mitochondrial 
-        	proteins, i.e. genes not yet present among the
-        	to <a href="https://www.broadinstitute.org/scientific-community/science/programs/metabolic-disease-program/publications/mitocarta/mitocarta-in-0" class="w3-text-green w3-hover-text-red" target="_blank">Mitocarta</a> list. <br>
-          Note that Galiphy can only use genes that are listed in the phenotype database HPO as input. Which on average means that only half the length of your input gene list is run through the actual algorithm. 
+          Accepted formats are gene names (symbol), Entrez gene IDs and Ensembl gene IDs, e.g. COX4I1P2, 652170 and ENSG00000228869, respectively.<br>
+        	The input genes must have a functional connection to each other.
+          The more genes you provide, the better the algorithm predicts.
+        	For example, this tool was developed to find new mitochondrial 
+        	proteins, i.e. genes not yet present in the <a href="https://www.broadinstitute.org/scientific-community/science/programs/metabolic-disease-program/publications/mitocarta/mitocarta-in-0" class="w3-text-green w3-hover-text-red" target="_blank">Mitocarta</a> list. <br>
+          Note that Galiphy only uses genes listed in the phenotype database HPO as input. This means that on average only half the length of your gene list is run through the actual algorithm. 
         </p>
       </div>
       <div class="w3-container w3-half">
         <h4> <b> Output: 3 files</b></h4>
         <h5 class="w3-bottombar w3-border-blue">1. Phenotype scored</h5>
         <p>
-          The phenotype scoring is based on frequencies of phenotypes in the phenotype database HPO. <br>
-          This file contains all phenotypes with their scores and their frequencies in and outside the input gene list.<br>
-          <i>Interesting for the clinicians</i> to look for the most typical phenotypes of the query list.
+          The phenotype scores are based on phenotype frequencies in the phenotype database HPO. <br>
+          This file contains all phenotypes scored as well as their frequencies in and outside the input gene list.<br>
+          <i>Interesting for clinicians</i>: find the most typical phenotypes of your query list.
         </p>
       
         <h5 class="w3-bottombar w3-border-green">2. Genes scored</h5>
         <p>
           The gene scoring is based on the previous file.<br>
           This file contains all {{ genes_in_HPO }} genes in HPO with their gene scores.<br>
-          <i>Most interesting file for researchers and clinicians.</i> Genes that score high and are not in the query, are your novel genes of interest.
+          <i>Most interesting file for researchers and clinicians:</i> find your candidate genes, the high scoring genes outside the query.
         </p>
 
         <h5 class="w3-bottombar w3-border-myred">3. How genes got their scores</h5>
         <p>
-          This output file contains all {{ genes_in_HPO }} genes together with their HPO phenotypes (and phenotype frequencies and phenotype scores). <br>
-          This file is mostly for insight, to see what happened in the algorithm between scoring of phenotypes (file 1) and scoring of genes (file 2). It shows how genes got their score as the gene score is a result of adding all its phenotype scores.
+          This output file contains all {{ genes_in_HPO }} genes together with their HPO phenotypes, phenotype frequencies and phenotype scores. <br>
+          This file is mostly for insight; see what Galiphy did between phenotypes scoring (file 1) and gene scoring (file 2). It shows how the algorithm scored the genes, i.e. adding all phenotype scores belonging to a gene.
         </p>
         <br><br><br><br><br>
 

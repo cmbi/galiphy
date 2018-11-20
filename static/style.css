@@ -2375,8 +2375,8 @@ a:hover + .box,.box:hover{
 .tooltip_h .tooltiptext_h {
     visibility: hidden;
     width: 300px;
-    background-color: grey;
-    color: #fff;
+    background-color: white;
+    color: #175194;
     text-align: left;
     border-radius: 6px;
     padding: 5px;
@@ -2449,4 +2449,9 @@ a:hover + .box,.box:hover{
     position: absolute;
     top: 8px;
     right: 16px;
+}
+font.formula{
+font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
+font-weight:bold;
+font-size:1.2rem
 }
