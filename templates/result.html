@@ -320,7 +320,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
       <!-- Table of genes. This is the input of the algorithm, the genes that are recognized and occur in the HPO database -->
       {% if number_accepted != 0 %}
       <div id="accepteddiv" class="w3-half">
-        <h3 style="color:#941751">Found in HPO:</h3>
+        <h3 style="color:#941751"><b>Found in HPO:</b></h3>
         With these genes the algorithm is run.<br>
         <b>
           <span style="font-size:1.5em">
@@ -329,7 +329,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
           query genes.
         </b>
         (Q = {{ Q }} genes)<br>
-        Which means, all the other genes in HPO are <br>the non-query genes: nQ = {{ genes_in_HPO - Q }} genes.
+        Which means that all other genes in HPO are <br>the non-query genes: nQ = {{ genes_in_HPO - Q }} genes.
         {{ accepted|safe }} 
       </div>
       {% endif %}

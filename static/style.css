@@ -2361,9 +2361,6 @@ a:hover + .box,.box:hover{
 /* Upload page (index) */
 
 
-/*  */
-
-/*  */
 
 /* tooltip Help */
 .tooltip_h {
@@ -2455,3 +2452,210 @@ font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
 font-weight:bold;
 font-size:1.2rem
 }
+
+
+/* loading button upload page */
+
+/* loading background fading */
+
+.ld-over-full,
+.ld-over-full-inverse {
+  position: relative;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  transition-timing-function: ease-in;
+  overflow: hidden;
+}
+.ld-over-full > .ld,
+.ld-over-full-inverse > .ld {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -0.5em;
+  opacity: 0;
+  z-index: -100;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  transition-timing-function: ease-in;
+}
+
+.ld-over-full.running > .ld,
+.ld-over-full-inverse.running > .ld {
+  opacity: 1;
+  z-index: auto;
+}
+
+.ld-over-full,
+.ld-over-full-inverse {
+  overflow: hidden;
+}
+
+.ld-over-full.running > .ld,
+.ld-over-full-inverse.running > .ld {
+  z-index: 99999;
+}
+
+
+.ld-over-full:before,
+.ld-over-full-inverse:before {
+  content: " ";
+  display: block;
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  transition-timing-function: ease-in;
+  background: rgba(240,240,240,0.8);
+}
+.ld-over-full > .ld,
+.ld-over-full-inverse > .ld {
+  position: fixed;
+}
+.ld-over-full > .ld {
+  color: rgba(0,0,0,0.8);
+}
+.ld-over-full:before,
+.ld-over-full-inverse:before {
+  z-index: -1;
+  position: fixed;
+  background: rgba(255,255,255,0.8);
+}
+
+.ld-over-full.running > .ld,
+.ld-over-full-inverse.running > .ld {
+  z-index: 999999;
+}
+
+.ld-over-full.running:before,
+.ld-over-full-inverse.running:before {
+  opacity: 1;
+  z-index: 999998;
+  display: block;
+}
+
+.ld-over-full-inverse > .ld {
+  color: rgba(255,255,255,0.8);
+}
+.ld-over-full-inverse:before {
+  background: rgba(0,0,0,0.6);
+}
+
+/* loading animation: bouncing ball */
+
+.ld.running {
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+}
+.ld.paused {
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+
+.ld-ball {
+  width: 1em;
+  height: 1em;
+  position: relative;
+  color: #941751;
+  display: inline-block;
+/*
+  &:before
+    content: "◎"
+    display: block
+    visibility: hidden
+  */
+}
+.ld-ball:after {
+  position: absolute;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: " ";
+  display: inline-block;
+  background: center center no-repeat;
+  background-size: cover;
+}
+.ld-ball:after {
+  border-radius: 50%;
+  background: #941751;
+}
+
+@keyframes ld-bounce {
+  0%, 90% {
+    animation-timing-function: linear;
+  }
+  10% {
+    animation-timing-function: cubic-bezier(0, 0.4, 0.6, 1);
+  }
+  50% {
+    animation-timing-function: cubic-bezier(0.4, 0, 1, 0.6);
+  }
+  0% {
+    -webkit-transform: translate(0%, 30%) scaleY(0.5);
+    transform: translate(0%, 30%) scaleY(0.5);
+  }
+  10% {
+    -webkit-transform: translate(0%, 5%) scaleY(1.1);
+    transform: translate(0%, 5%) scaleY(1.1);
+  }
+  50% {
+    -webkit-transform: translate(0%, -37%) scaleY(1.1);
+    transform: translate(0%, -37%) scaleY(1.1);
+  }
+  90% {
+    -webkit-transform: translate(0%, 5%) scaleY(1.1);
+    transform: translate(0%, 5%) scaleY(1.1);
+  }
+  100% {
+    -webkit-transform: translate(0%, 30%) scaleY(0.5);
+    transform: translate(0%, 30%) scaleY(0.5);
+  }
+}
+@-webkit-keyframes ld-bounce {
+  0%, 90% {
+    animation-timing-function: linear;
+  }
+  10% {
+    animation-timing-function: cubic-bezier(0, 0.4, 0.6, 1);
+  }
+  50% {
+    animation-timing-function: cubic-bezier(0.4, 0, 1, 0.6);
+  }
+  0% {
+    -webkit-transform: translate(0%, 30%) scaleY(0.5);
+    transform: translate(0%, 30%) scaleY(0.5);
+  }
+  10% {
+    -webkit-transform: translate(0%, 5%) scaleY(1.1);
+    transform: translate(0%, 5%) scaleY(1.1);
+  }
+  50% {
+    -webkit-transform: translate(0%, -37%) scaleY(1.1);
+    transform: translate(0%, -37%) scaleY(1.1);
+  }
+  90% {
+    -webkit-transform: translate(0%, 5%) scaleY(1.1);
+    transform: translate(0%, 5%) scaleY(1.1);
+  }
+  100% {
+    -webkit-transform: translate(0%, 30%) scaleY(0.5);
+    transform: translate(0%, 30%) scaleY(0.5);
+  }
+}
+.ld.ld-bounce {
+  -webkit-animation: ld-bounce 1s infinite;
+  animation: ld-bounce 1s infinite;
+}
+
+/*  */
+/*  */
+/*  */
+
