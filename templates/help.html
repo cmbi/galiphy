@@ -56,8 +56,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
     <p>
       <b>Jump to:</b>
       <span style="display: inline-block;">
-      <b><a class="one" href="#tutorial" style="color: white;margin-left: 20px">Tutorial</a></b>
-      <b><a class="one" href="#example" style="color: white;margin-left: 20px">Example</a></b></span>
+      <b><a class="one" href="#tutorial" style="color: white;margin-left: 20px">Tutorial</a>
+      <a class="one" href="#example" style="color: white;margin-left: 20px">Example</a><a class="one" href="#algorithm" style="color: white;margin-left: 20px">Algorithm</a></b></span>
     </p>
   </div>
 
@@ -74,7 +74,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
       <p>
         <h5><b><font color="703093">Q2 Is Galiphy worth exploring for me?</font></b></h5>
         <ul>
-          <li>You are a clinical professional and interested in some candidate genes that are not yet described to be associated with a disease.</li>
+          <li>You are a clinical professional and interested in some candidate genes that may be associated with a disease.</li>
           <li>You are a researcher and looking for candidate genes not yet discovered to be in your pathway of interest.</li>
           <li>You are already working with genes that are underannotated and looking for more validation for your (clinical) lab experiments.</li>
         </ul>
@@ -85,48 +85,43 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
           <ul>
             <li><b>Gene name (symbol)</b>: this format is not preferred as some genes have symbol synonyms.</li>
             <li><b>Entrez gene ID</b>: <u>this is the advised format</u>.</li>
-            <li><b>Ensemble gene ID</b>: e.g. ENSG00000228869.1 but always without version number behind the dot.</li>
+            <li><b>Ensemble gene ID</b>: e.g. ENSG00000228869.1 but always without version number (xxx.1 &#8594; xxx) behind the dot.</li>
           </ul>
           Seperated by enters or spaces.
 
       </p>
       <p id="Q4">
         <h5><b><font color="703093">Q4 How do I get a gene list?</font></b></h5>
-        Good question. As you need a larger gene list to get a better prediction, try to gather genes that share a pathway, cellular function, cellular system, disease or co-expression. Maybe there is already a gene list there for your system of interest, like on <a href='https://www.wikipathways.org/index.php/WikiPathways' target='_blank'>WikiPathways</a>, <a href='https://www.omim.org' target='_blank'>OMIM</a>, <a href='https://coexpression.cmbi.umcn.nl/about' target='_blank'>WeGET</a>, <a href='https://www.genome.jp/kegg/pathway.html' target='_blank'>KEGG pathways</a>, <a href='https://reactome.org' target='_blank'>Reactome</a> etc.
+        Good question. Larger gene lists get better predictions. Try to increase the size of your list by gathering genes that share a pathway, cellular function, cellular system, disease or co-expression. Maybe there is already a gene list there for your system of interest, like on <a href='https://www.wikipathways.org/index.php/WikiPathways' target='_blank'>WikiPathways</a>, <a href='https://www.omim.org' target='_blank'>OMIM</a>, <a href='https://coexpression.cmbi.umcn.nl/about' target='_blank'>WeGET</a>, <a href='https://www.genome.jp/kegg/pathway.html' target='_blank'>KEGG pathways</a>, <a href='https://reactome.org' target='_blank'>Reactome</a> etc. Once you have your list of genes for a given biological process, you’re ready to see which phenotypes and other genes are associated using Galiphy.
+
       </p>
       <p>
         <h5><b><font color="703093">Q5 Is my gene list too short? </font></b></h5>
-        It has to be clarified first that not all genes that you enter will run through the algorithm. Some genes will be dropped from the query because they are not listed in the phenotype database HPO. Often around half the genes are dropped.<br>
-        Furthermore, the algorithm tends to have better prediction power with the following factors: 
+        Not all genes that you enter will run through the algorithm. Some genes will be dropped from the query because they are not listed in the phenotype database HPO. It is typical that around half the genes are dropped. It helps to start with at least 10 genes that are listed in HPO.<br>
+        Galiphy tends to have better prediction power with the following factors: 
         <ul>
           <li>Abundant phenotype annotation of the query genes</li>
           <li>Similarity of the phenotypes among the query genes</li>
           <li>Length of the query gene list</li>
         </ul>
-        Take all of the above into consideration and always look at the output critically. Try to end up with at least 10 genes that are listed in HPO. More genes is always better. 
+        Take all of the above into consideration and always look at the output critically. As is typical with genomic tools, more genes is always better. 
       </p>
       <p>
         <h5><b><font color="703093">Q6 What is the easiest way to view the output files?</font></b></h5>
-        Open Excel, open the scoring files from here (File > Open) or right-click the file in your Download folder and click 'open in Excel'. Then press ctr+a and click Insert > Table. This way you can sort the columns easily. 
+        Open Excel, open the scoring files from here (File > Open) or right-click the file in your Download folder and click 'open in Excel'. Sorting the columns in Excel is a good way to explore the results of the analysis.
+  
       </p>
       <p id="Q7">
         <h5><b><font color="703093">Q7 What can I do to validate the results? </font></b></h5>
         Like in the <a href="{{ url_for('reference') }}" class="w3-text-green w3-hover-text-red" >Galiphy article</a>, you can use several methods:<br><br>
         <b> Statistical methods:</b>
         <ul>
+          <li>Statistical methods (with GSEA, ROC, Precision rank plot)</li>
+          <li>Literature</li>
+          <li>Functional correlation (with WeGET and STRING)</li>
           <li>GSEA, gene set enrichment analysis.</li>
-          <li>ROC, receiver operating characteristic curve. Area under curve (AUC) can be used as prediction evaluation.</li>
-          <li>Frequency distribution of the gene scores among the query genes and the non-query genes.</li>
-          <li>Precision rank plot: precision (positive prediction) value vs. rank.</li>
         </ul>
-        <b>Literature:</b><br>
-        Look up the highest scoring non-query genes in the literature.<br><br>
-        <b>Functional correlation:</b><br>
-        Look up functional correlation of the highest scoring non-query genes in the literature or use the following tools:
-        <ul>
-          <li>WeGET: correlation through co-expression</li>
-          <li>STRING: correlation through occurence in KEGG pathways and GO biological processes.</li>
-        </ul>
+        Please see <a href="#example_results" class="w3-text-green w3-hover-text-red" >example results</a> for a more in-depth explanation.
       </p>
 
     <p>
@@ -143,7 +138,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
     <div class="w3-container">
       <h3 class="w3-bottombar w3-border-white"><b>Step 1: </b>Gene list</h3>
       <h5><b><font color="009193"> What Galiphy does: </font></b></h5>
-      Galiphy recognizes different types of gene names (entrez gene names, ensembl gene names, gene symbols and gene IDs). 
+      Galiphy recognizes different types of gene names (entrez gene names, ensembl gene names, gene symbols and ensembl gene IDs). 
       Not all recognized genes are listed in the <a href="https://hpo.jax.org/app/" class="w3-text-green w3-hover-text-red" target="_blank"> HPO database</a>. Galiphy drops genes from your input gene list if they are not in HPO. 
 
       <h5><b><font color="074080"> What you should do: </font></b></h5>
@@ -154,7 +149,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
 
       <h3 class="w3-bottombar w3-border-white"><b>Step 2: </b> Calculations</h3>
       <h5><b><font color="009193"> What Galiphy does: </font></b></h5>
-      Galiphy starts its scoring algorithm. First it generates a phenotype score for each phenotype in the database. Galiphy takes all phenotypes, determines how often each phenotype occurs in the query and how often it occurs in the rest of the HPO database. The phenotype score formula uses these frequencies to generate the phenotype score. Then, Galiphy adds all the scores of the phenotypes that belong to one gene which results in the gene score. More details about the scoring in step 4: Interpretation of the data.
+      Galiphy starts scoring. First it generates a phenotype score for each phenotype in the database. Galiphy takes all phenotypes, determines how often each phenotype occurs in the query and how often it occurs in the rest of the HPO database. The phenotype score formula uses these frequencies to generate the phenotype score. Then, Galiphy adds all the scores of the phenotypes that belong to one gene which results in the gene score. More details about the scoring in step 4: Interpretation of the data.
 
       <h5><b><font color="074080"> What you should do: </font></b></h5>
       Wait 5 seconds.
@@ -163,7 +158,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
       <h3 class="w3-bottombar w3-border-white"><b>Step 3: </b> Results</h3>
 
       <h5><b><font color="009193"> What Galiphy does: </font></b></h5>
-      Galiphy writes your results in three files, the phenotype scores, the gene scores and the gene-to-phenotype file. 
+      Galiphy writes your results in three files, the phenotype scores, the gene scores and the gene-to-phenotype file (the last file is mainly used for quality assessment).
 
       <h5><b><font color="074080"> What you should do: </font></b></h5>
       Hit the download button to obtain all files; phenotype scores, the gene scores and the gene-to-phenotype file. It is important to take a look at the result page, in particular at column information of the files, input information and error alerts.
@@ -180,7 +175,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
       <div class="w3-container">
         <h5><b>The phenotype scoring file</b></h5>
         <div class="w3-container w3-twothird">
-          The phenotype file shows you which phenotypes are most typical for your genes of interest. Besides the scores you should also look at the frequency columns to understand how typical a phenotype is. The probability of finding any phenotype amongst the query list is dependent on the lenght of the query gene list. So HPO consist of {{ genes_in_HPO }} genes and if the query list (<font class='formula'>Q</font>) contains 393 genes then the 'non-query list' (<font class='formula'>nQ</font>) has {{ genes_in_HPO - 393 }} genes.<br><br>
+          The phenotype file shows you which phenotypes are most typical for your genes of interest. Besides the scores you should also look at the frequency columns to understand how typical a phenotype is. The probability of finding any phenotype amongst the query list is dependent on the length of the query gene list. So HPO consist of {{ genes_in_HPO }} genes and if the query list (<font class='formula'>Q</font>) contains 393 genes then the 'non-query list' (<font class='formula'>nQ</font>) has {{ genes_in_HPO - 393 }} genes.<br><br>
           A high score means that the phenotype appears relatively often among your query genes. A good scoring phenotype could be linked to 29 of your query genes (<font class='formula'>q</font>) and to none of the non-query genes (<font class='formula'>nq</font>). This results in the Phenotype score of 11.28. <br><br>
           Sometimes you encounter frequencies of 0.1, these were zeroes that changed to 0.1 to prevent mathematical error in the formula.<br>
       
@@ -295,7 +290,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
       <h6><b>Gene IDs over gene names</b></h6>
       When you download Mitocarta2.0, you can easily select one column and copy-paste it into the input field of Galiphy on the home page. Copy-pasting the gene name column is allowed but will get you dissapointed later as Galiphy tells you on the result page that a significant number of genes are not recognized. This is because some of the gene names are not up to date and are nowadays synonyms of genes. 
       <br>
-      Therefore, we recommend you to use the gene ID column.
+      Therefore, we recommend you to use the <a href="{{ url_for('static', filename='mitocarta_gene_IDs.txt') }}" class="w3-text-green w3-hover-text-red" target='_blank'><b>gene ID column</b></a>.
       <h6><b>Input evaluation</b></h6>
       Galiphy can only run with the genes that are described in HPO. On the result page you can see which genes are found in HPO and which not. From the 1148 Mitocarta genes 393 genes are listed in HPO, so the other 765 genes are dropped from the algorithm.
       <br><br><br>
@@ -344,7 +339,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
                 <p>
                   <b>Using clinical knowledge to edit the query gene list</b>
                   <br>
-                  If some phenotypes are not common for the disease according to your clinical knowledge, consider elimating the genes that are disrupting the quality of the phenotype profile from your query list in order to get more reliable results. <br>
+                  If some phenotypes are not common for the disease according to your clinical knowledge, consider eliminating the genes that are disrupting the quality of the phenotype profile from your query list in order to get more reliable results. <br>
                   In our study, SDH gene defects caused two specific types of cancer. All six SDH genes were therefore removed from the query list. Galiphy was run again which resulted in better phenotype scoring. 
                 </p>
                 <p>
@@ -369,7 +364,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
               <h5 class="w3-bottombar w3-border-myred"><b>Genes to phenotypes</b></h5>
               In this file all genes in HPO are listed together with their phenotypes and phenotype scores. It tells you how each gene got its gene score as the score results from adding all phenotype scores. Most likely, you will look at this file after you have curated the gene score or the phenotype file. You could look for the phenotypes with which one specific gene of interest is associated to.
               <p>
-                <b>Reverse the file into phenotype to gene association</b><br>
+                <b>Phenotype to gene association</b><br>
                 If you sort on phenotypes you can see which genes are assigned to that specific phenotype of interest. This way, you created the reversed file, the phenotype to gene file. 
               </p>
               <p>
