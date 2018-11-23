@@ -53,7 +53,7 @@
 
   <!-- Three chapters on this page that can be jumped to. -->
   <div class="w3-container" id=top><br><br><br>
-    Before seeking contact, be sure to read the Frequently Asked Questions, Tutorial and Example.<br><br>
+    Before seeking contact, be sure to read this Help page carefully.<br><br>
     <p>
       <b>Jump to:</b>
       <span style="display: inline-block;">
@@ -85,7 +85,7 @@
           Human genes in the format of:
           <ul>
             <li><b>Gene name (symbol)</b>: this format is not preferred as some genes have symbol synonyms.</li>
-            <li><b>Entrez gene ID</b>: <u>this is the advised format</u>.</li>
+            <li><b>Entrez gene ID</b>: this is the advised format.</li>
             <li><b>Ensemble gene ID</b>: e.g. ENSG00000228869.1 but always without version number (xxx.1 &#8594; xxx) behind the dot.</li>
           </ul>
           Seperated by enters or spaces.
@@ -130,7 +130,7 @@
         Go to top
       </a>
     </p>
-    </div>
+  </div>
 
 
   <!-- Tutorial: stepwise explanation of the tool and its formula -->
@@ -188,46 +188,6 @@
           </p><br><br><br><br>
         </div>
 
-        <div class='w3-threequarter w3-white' style="margin-left:70px; margin-right: 70px;margin-top:20px;margin-bottom:20px;border: solid 6px #941751">
-          <h4 style="margin-left:4em; color:#941751"><b>The formula for phenotype scoring</b></h4>
-
-          <div class="w3-container w3-third" style="margin-left:30px;text-align:right">
-            <br>Example numbers<br>
-            <i>
-              q = 3 of Q = 393 <br>
-              nq = 32 of nQ = {{ genes_in_HPO - 393 }} <br>
-              tot = 35 of T = {{ genes_in_HPO }}
-            </i>
-          </div>
-          <div class="w3-container w3-half" style="min-width: 300px;margin-right:30px">
-            <br><br>
-            <img src="{{ url_for('static', filename='formula1.png') }}" style="width:280px">
-            <br><br>
-          </div>
-          <div class="w3-container">
-            <br>
-            Where <font class='formula'>q</font> is the phenotype frequency among the query gene list <font class='formula'>Q</font> and <font class='formula'>nq</font> is the phenotype frequency among the non-query gene list <font class='formula'>nQ</font>.
-            <br><br>
-            Note: If one of the variables is zero, a mathematical error must be prevented. 
-            <font color=#45A9A6>
-              <span class="tooltip_h">Read
-                <span class="tooltiptext_h" style="font-size:0.75em">
-                  When a phenotype is not found among the query genes (<font style="font-size:0.9rem" class='formula'>q</font>) or the non-query genes (<font style="font-size:0.9rem" class='formula'>nq</font>), <b>zero is replaced by 0.1</b> to prevent mathematical errors (due to division by zero for <font style="font-size:0.9rem" class='formula'>nq</font>=0, and the undefined logarithm of zero for <font style="font-size:0.9rem" class='formula'>q</font>=0).
-                </span>
-              </span>
-            </font>
-            how.
-          </div>
-          <br>
-          <div class="w3-container">
-            <i>
-            The scoring is based on how many times one phenotype occurs in the query gene list compared to the rest of the genes. So 3 of the 393 query genes have the phenotype and 32 of the {{ genes_in_HPO - 393 }} non-query genes have the phenotype. When the relative frequency among both gene lists is almost the same, the phenotype is not typical nor atypical, thus a neutral score is favoured. Try to calculate the score for this example phenotype. </i>
-            <p style="text-align:right; color:#F0F0F0" >        
-              Psst.... The answer is 0.3
-            </p>
-            
-          </div>
-        </div>
 
       </div>
       <br><br>
@@ -424,6 +384,103 @@
     </p>
   </div>
 
+
+  <div class="w3-container">
+    <h2 id="algorithm" class="w3-bottombar w3-border-myred" style="text-align:center"><b><font color="941751"><br>Algorithm</font></b></h2>
+    <br><br>
+    Galiphy’s algorithm is based on the enrichment of phenotypes in the input list of genes. <br>
+    Phenotypes are scored using the following principles: <br>
+    <ol>
+      <li>Phenotypes that are more often associated to the query genes should score higher than phenotypes that are more often associated to the non-query genes. </li>
+      <li>If, for instance, HPO annotates 75 genes of the query, the remaining {{ genes_in_HPO - 75 }} genes are automatically defined as non- query genes.</li>
+      <li>Prior is taken into account, meaning that the relative chances of finding phenotypes in each query list are incorporated. </li>
+    </ol>
+    <br>
+    <p>
+      After the client provides an input gene list, all HPO phenotypes are gathered of those genes and of the genes that are not input genes. Then, each phenotype is given a score:
+    </p>
+    <div class="w3-container w3-col">
+      <div class='w3-threequarter w3-white' style="margin-left:70px; margin-right: 70px;margin-top:20px;margin-bottom:20px;padding:10px;border: solid 6px #941751">
+        <h4 style="margin-left:4em; color:#941751"><b>The formula for phenotype scoring</b></h4>
+        <div>
+          <div class="w3-container w3-half" style="text-align:right">
+            <br>Example numbers<br>
+            <i>
+              q = 3 of Q = 393 <br>
+              nq = 32 of nQ = {{ genes_in_HPO - 393 }} <br>
+              tot = 35 of T = {{ genes_in_HPO }}
+            </i>
+          </div>
+          <div class="w3-container w3-half" style="min-width: 300px;padding-left:30px">
+            <br><br>
+            <img src="{{ url_for('static', filename='formula1.png') }}" style="width:280px">
+            <br><br>
+          </div>
+        </div>
+        <div class="w3-container">
+          <br>
+          Where <font class='formula'>q</font> is the phenotype frequency among the query gene list <font class='formula'>Q</font> and <font class='formula'>nq</font> is the phenotype frequency among the non-query gene list <font class='formula'>nQ</font>.
+          <br><br>
+          Note: If one of the variables is zero, a mathematical error must be prevented. 
+          <font color=#45A9A6>
+            <span class="tooltip_h">Read
+              <span class="tooltiptext_h" style="font-size:0.75em">
+                When a phenotype is not found among the query genes (<font style="font-size:0.9rem" class='formula'>q</font>) or the non-query genes (<font style="font-size:0.9rem" class='formula'>nq</font>), <b>zero is replaced by 0.1</b> to prevent mathematical errors (due to division by zero for <font style="font-size:0.9rem" class='formula'>nq</font>=0, and the undefined logarithm of zero for <font style="font-size:0.9rem" class='formula'>q</font>=0).
+              </span>
+            </span>
+          </font>
+          how.
+        </div>
+        <br>
+        <div class="w3-container">
+          <i>
+          The scoring is based on how many times one phenotype occurs in the query gene list compared to the rest of the genes. So 3 of the 393 query genes have the phenotype and 32 of the {{ genes_in_HPO - 393 }} non-query genes have the phenotype. When the relative frequency among both gene lists is almost the same, the phenotype is not typical nor atypical, thus a neutral score is favoured. <br>Try to calculate (or estimate) the score for this example phenotype. </i>
+          <p style="text-align:right; color:#F0F0F0" >        
+            Psst.... The answer is 0.31
+          </p>
+          
+        </div>
+      </div>
+    </div>
+    <p>
+      Once all {{ genes_in_HPO }} phenotypes are given a score, the phenotypes are mapped back to their associated genes.<br>
+      Then, each gene is scored as follows:
+    </p>
+    <div class="w3-container w3-col">
+      <div class='w3-threequarter w3-white' style="margin-left:70px; margin-right: 70px;margin-top:20px;margin-bottom:20px;padding:10px;border: solid 6px #941751">
+        <h4 style="margin-left:4em; color:#941751"><b>The formula for gene scoring</b></h4>
+        <div>
+          <div class="w3-container w3-half" style="text-align:right">
+            <br>Example numbers<br>
+            <i>
+            PS<sub>1</sub> = 4.23<br>
+            PS<sub>2</sub> = 2.50<br>
+            PS<sub>3</sub> = -1.20<br>
+            </i>
+          </div>
+          <div class="w3-container w3-half" style="min-width: 300px;padding-left:30px">
+            <br><br>
+            Gene score = <font class='formula'><font class="w3-xlarge">&#931;</font>PS<sub>all</sub></font>
+            <br><br><br>
+          </div>
+        </div>
+        <br><br>
+        <p>
+          Where <font class='formula'>PS<sub>all</sub></font> are all the phenotype scores of the phenotypes the gene is linked to in the HPO database. <br>Calculate (or estimate) the gene score of this example gene.
+          <p style="text-align:right; color:#F0F0F0" >        
+            The answer is 5.53
+          </p>
+        </p>
+      </div>
+
+
+      
+    </div>
+    <p>
+      <a class="two" href="#top">
+        Go to top
+      </a>
+    </p>
   </div>
 
 

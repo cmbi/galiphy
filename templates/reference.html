@@ -55,9 +55,9 @@
       <h4><b><font color="941751">Version 1.1</font></b></h4>
       <b>First update of Galiphy, resolving phenotype scoring shortcoming.<br></b>
       [07-11-2018]<br>
-      The phenotype scoring is adjusted for some cases, to see how normal scoring is done, look at the <a href="{{ url_for('help', _anchor='step4') }}" class="w3-text-green w3-hover-text-red" target="_blank"><b>formula</b></a> explanation.<br>
+      The phenotype scoring is adjusted for some cases, to see how normal scoring is done, look at the <a href="{{ url_for('help', _anchor='algorithm') }}" class="w3-text-green w3-hover-text-red" target="_blank"><b>formula</b></a> explanation.<br>
       <b>Problem:</b><br>
-      When phenotypes are not found among the query genes, the variable <font class='formula'>q</font> is changed from 0 to 0.1. This is done in order to prevent mathematical error. However, 0.1 divided by any query gene list length still creates a bigger number than the value of <font class='formula'>nq</font> divided by the non-query gene list length. I.e. in many cases, the phenotype score is higher than zero when a phenotype occurs zero times among the query genes. As this resulting positive phenotype score gives a gene an unwanted increase in gene score, a solution is needed. <br>
+      When phenotypes are not found among the query genes, the variable <font class='formula'>q</font> is changed from 0 to 0.1. This is done in order to prevent mathematical error. However, 0.1 divided by any query gene list length creates a bigger number than the value of <font class='formula'>nq</font> divided by the non-query gene list length. I.e. in many cases, the phenotype score is higher than zero when a phenotype occurs zero times among the query genes. As this resulting positive phenotype score gives a gene an unwanted increase in gene score, a solution is needed. <br>
       <b>Solution:</b><br>
       The highest unwanted phenotype score (PS) is the score of <font class='formula'>q</font>=0 and <font class='formula'>nq</font>=1. The scores are adjusted for all q = 0 cases by substracting the that PS. See the table below where both scoring in version 1.0 for q = 0 is shown and the new scoring in version 1.1.
       <table>
@@ -87,6 +87,7 @@
           <td>PS1.0(0;x) - PS1.0(0;1)</td>
         </tr>
       </table>
+      <br><br>
     </div>
 
     <div class="w3-container">
@@ -103,21 +104,22 @@
     </div>
   </div>
 
-  <div class="w3-container w3-third" style="margin-top:200px">
-
-    Click here to read the article in new window:
-    <br><br>
+  <div class="w3-container w3-third" style="border: solid 3px #45A9A6; text-align:center;margin-top:100px">
+    <h3><b>Galiphy article:</b></h3>
+    <br>
     <a class="rood" href="{{ url_for('static', filename='Galiphy_article_2018.pdf') }}" target="_blank">
-      Galiphy article
+      Read in new tab
     </a>
-
-    <br><br><br><br>
-
-    The article can be downloaded here:
-    <br><br>
+    <br><br><br>
     <a href="{{ url_for('static', filename='Galiphy_article_2018.pdf') }}" class="rood" download>
       Download
     </a>
+    <br><br><br>
+    <p>
+      <b>van Hoek, I.N. and Huijnen, M.A. (2018).</b><br>
+      Galiphy: Finding new candidate genes associated with molecular systems by computational screening for typical phenotypes.
+      Manuscript in preparation.
+    </p>
     <br>
   </div>
 

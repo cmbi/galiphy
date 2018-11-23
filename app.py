@@ -65,7 +65,7 @@ def contact():
    return render_template('contact.html')
 
 @app.route('/uploader', methods = ['GET', 'POST'])
-def upload_file():
+def uploader():
     """
     Input from client is edited so it can be send to tool. 
     """

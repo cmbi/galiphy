@@ -86,8 +86,8 @@
             </a>
           </span>
           <ul style="padding-left:20px">
-            <li>You are a clinical professional and interested in some candidate genes that are not yet described to be associated with a disease.</li>
-            <li>You are a researcher and looking for candidate genes not yet confirmed to be in your pathway of interest.</li>
+            <li>You are a clinical professional and interested in some candidate genes that may be associated with a disease.</li>
+            <li>You are a researcher and looking for candidate genes not yet discovered to be in your pathway of interest.</li>
             <li>You are already working with genes that are underannotated and looking for more validation for your (clinical) lab experiments.</li>
           </ul>
         </i>
@@ -96,7 +96,7 @@
 
       <!-- Client input field, for input to tool (form: one textarea and one submit button) with hoverable example inputs -->
     <div class="w3-container w3-quarter" style="width:400px;margin-left: 70px">
-      <form name= "myForm" method="POST" action="uploader" class=add-entry id="input_form" onSubmit="validateform(myForm.list_genes); return True">
+      <form name= "myForm" method="POST" action="{{ url_for('uploader') }}" class=add-entry id="input_form" onSubmit="validateform(myForm.list_genes); return True">
         <dl>
 
           <dt>Enter a list of human genes: </dt>
