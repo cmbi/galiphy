@@ -243,7 +243,6 @@ def tool11(filehandle):
 
     """
 
-    # /home/galiphy/
     
     HPOfilename = openfile('db_directory.txt')+"ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt"
 
@@ -270,8 +269,8 @@ def tool11(filehandle):
 
     # preparing file names with dates so that they all have a unique name
     date = str(datetime.now())[:-7].replace(" ","_").replace(":","-")
-    output_phen = 'output/Galiphy_v1_0_PhenotypeScores_'+date+'.tsv' #'25jan2016_Scored_phenotypes.csv' #
-    output_genes = 'output/Galiphy_v1_0_GeneScores_'+date+'.tsv' #'25jan2016_Scored_genes.csv' #
+    output_phen = 'output/Galiphy_v1_0_PhenotypeScores_'+date+'.tsv'
+    output_genes = 'output/Galiphy_v1_0_GeneScores_'+date+'.tsv'
     output_phenpergenes = 'output/Galiphy_v1_0_PhenotypeScores_To_Genes_'+date+'.tsv'
 
     # Step 3: Score phenotypes
