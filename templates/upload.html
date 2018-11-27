@@ -9,9 +9,10 @@
   <meta name="google-site-verification" content="jAkrjwWtMnSaV13M6DIlRcf7wxGo-bhe5jkU5D1zTU4">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   <style>
-  textarea {
+    html,body,h1,h2,h3,h4,h5 {font-family: "Trebuchet MS", Helvetica, sans-serif}
+    textarea {
       width: 100%;
-  }
+    }
   </style>
   <title>Galiphy</title>
   <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
@@ -65,7 +66,7 @@
   <div class="w3-container">
 
       <!-- Header and Galiphy introduction -->
-    <div>
+    <div class="w3-container" >
       <div class="w3-container w3-twothird" style="padding-right: 30px">
         <h2 id="h1results"><b><font color="941751">Welcome to Galiphy!</font></b></h2>
         <p>
@@ -163,7 +164,7 @@
           </tr>
           <tr>
             <td>Input</td>
-            <td>List of genes that share a cellular function (do not enter candidate genes here)</td>
+            <td>List of genes that share a cellular function</td>
           </tr>
           <tr>
             <td>Algorithm</td>
