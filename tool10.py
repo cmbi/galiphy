@@ -1,3 +1,8 @@
+## Galiphy version 1.0
+# This script imports HPO, and has the clients gene list as input.
+# It calculates phenotype scores based on enrichment.
+# Phenotypes are mapped back to their genes and gene scores are generated.
+# Outputs are 3 tsv files which are written in the output folder. 
 
 import os,errno
 import pandas as pd

@@ -15,12 +15,12 @@ See [requirements.txt](requirements.txt).
 
 ### Dependencies
 
-Phenotype database downloaded regularly from [HPO](http://compbio.charite.de/jenkins/job/hpo.annotations.monthly/lastSuccessfulBuild/artifact/annotation/ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt)
+Phenotype database downloaded monthly from [HPO](http://compbio.charite.de/jenkins/job/hpo.annotations.monthly/lastSuccessfulBuild/artifact/annotation/ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt)
 
 ### Built With
 
 * Flask
-* Python
+* Python 2.7
 * Html
 * CSS
 

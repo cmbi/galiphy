@@ -155,31 +155,31 @@
         <h4>Super short explanation</h4>
         <table id="summary" style="font-size:0.9em">
           <tr>
-            <td>Goal</td>
+            <td><b>Goal</b></td>
             <td>Find new candidate genes associated with your cellular function of interest</td>
           </tr>
           <tr>
-            <td>Source</td>
+            <td><b>Source</b></td>
             <td>Database HPO (Human Phenotype Ontology) links phenotypes to {{ genes_in_HPO }} gene defects</td>
           </tr>
           <tr>
-            <td>Input</td>
+            <td><b>Input</b></td>
             <td>List of genes that share a cellular function</td>
           </tr>
           <tr>
-            <td>Algorithm</td>
-            <td>Based on frequency of phenotypes among the input genes</td>
+            <td><a href="{{ url_for('help', _anchor='algorithm') }}" class="w3-text-green w3-hover-text-red" target="_blank"><b>Algorithm</b></a></td>
+            <td>Based on enrichment of phenotypes among the input genes</td>
           </tr>
           <tr>
-            <td>Mid outcome</td>
+            <td><b>Mid outcome</b></td>
             <td>First, all phenotypes in the HPO database are scored</td>
           </tr>
           <tr>
-            <td>Final outcome</td>
+            <td><b>Final outcome</b></td>
             <td>Then, all {{ genes_in_HPO }} genes in the HPO database are scored based on the phenotype frequency</td>
           </tr>
             <tr>
-            <td>Conclusion</td>
+            <td><b>Conclusion</b></td>
             <td>Genes with high scores probably have a similar cellular function as your input genes, and are phenotypically linked to your genes of interest</td>
           </tr>
         </table>     

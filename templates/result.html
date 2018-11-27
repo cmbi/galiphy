@@ -80,7 +80,9 @@
         <a href="{{ url_for('download', filename=output_phen ) }}"><button class="results w3-blue">Download</button></a>
       </h4>
       <p style="font-size:0.85em">
-        All phenotypes in the HPO database with their generated scores.
+          The phenotype scores are based on the enrichment of a given phenotype in the input list of genes. <br>
+          This file contains all phenotypes scored as well as their frequencies in and outside the input gene list.<br>
+          Find the most typical phenotypes of your query list.
       </p>
       <br>
       <!-- Hoverable items explaining the content of the file -->
@@ -135,8 +137,9 @@
         <a href="{{ url_for('download', filename=output_phenpergenes ) }}"><button class="results w3-red">Download</button></a>​
       </h4>
       <p style="font-size:0.85em">
-        Every gene with its phenotypes and their belonging phenotype scores.
-        <br><br><br>
+        This file is mostly for transparency: you can inspect what Galiphy did between phenotypes scoring (file left) and gene scoring (file right).<br>
+        Every gene with its phenotypes and their belonging phenotype scores. Shows you how each gene got its score.
+        <br>
       </p>
       <p style="font-size:0.75em">
         <!-- On click shows schematic example of the file in new window -->
@@ -158,8 +161,9 @@
       </h4>
       <p style="font-size:0.85em">
         Main file for most research questions.<br>
-        Contains a list of all genes in the HPO database with the
-        belonging gene scores based on the phenotype scores.
+        Gene scores are calculated using the enriched phenotypes.<br>
+        This file contains all {{ genes_in_HPO }} genes in HPO with their gene scores.<br>
+        Find your candidate genes, the high scoring genes outside the query.
       </p>
       <p style="font-size:0.75em">
         Column information:
@@ -236,7 +240,7 @@
           <b> Gene name (symbol) synonyms</b><br>
           Make sure to use Entrez gene IDs or Ensembl IDs to make sure that the gene names are not old ones.<br>
           <b> Ensembl versions</b><br>
-          The number behind the dot in the Ensembl gene ID (e.g. ENSG00000228869.1) should be removed in your query.<br>
+          The number behind the dot in the Ensembl gene ID (e.g. ENSG00000228869.1) should be removed in your query (xxx.1 &#8594; xxx).<br>
           <b> Human genes </b><br>
           This tool can only run with human genes. <br>
         
@@ -264,7 +268,7 @@
           <b> Gene name (symbol) synonyms</b><br>
           Make sure to use Entrez gene IDs or Ensembl IDs to make sure that the gene names are not old ones.<br>
           <b> Ensembl versions</b><br>
-          The number behind the dot in the Ensembl gene ID (e.g. ENSG00000228869.1) should be removed in your query.<br>
+          The number behind the dot in the Ensembl gene ID (e.g. ENSG00000228869.1) should be removed in your query (xxx.1 &#8594; xxx).<br>
           <b> Human genes </b><br>
           This tool can only run with human genes. <br>
           <a href="{{ url_for('help', _anchor='Q3') }}" class="w3-text-green w3-hover-text-red" target="_blank"><b>FAQ on input formats.</b></a><br>
@@ -321,7 +325,14 @@
       <!-- Table of genes. This is the input of the algorithm, the genes that are recognized and occur in the HPO database -->
       {% if number_accepted != 0 %}
       <div id="accepteddiv" class="w3-half">
-        <h3 style="color:#941751"><b>Found in HPO:</b></h3>
+        <h3 style="color:#941751"><b>Found in
+          <span class="tooltip_r">
+              HPO</b>
+              <span class="tooltiptext_r w3-white" style="font-size:0.50em">
+                Human Phenotype Ontology: database with phenotypes<br> collected from {{ genes_in_HPO }} human genes.<br>
+                Galiphy uses this database for its predictions.
+              </span>
+            </span><b>:</b></h3>
         With these genes the algorithm is run.<br>
         <b>
           <span style="font-size:1.5em">
@@ -338,7 +349,14 @@
       <!-- Table of genes. These genes are dropped from the query list as they are not found in the HPO database -->
       {% if number_dropped != 0 %}
       <div id = "droppeddiv" class="w3-half">
-        <h3 style="color:#941751"> Not found in HPO:</h3>
+        <h3 style="color:#941751"> Not found in 
+          <span class="tooltip_r">
+              HPO
+              <span class="tooltiptext_r w3-white" style="font-size:0.50em">
+                Human Phenotype Ontology: database with phenotypes<br> collected from {{ genes_in_HPO }} human genes.<br>
+                Galiphy uses this database for its predictions.
+              </span>
+            </span>:</h3>
         These genes were recognized, but do <br>not occur in the phenotype database.<br>
         <b>
           {{ number_dropped }}

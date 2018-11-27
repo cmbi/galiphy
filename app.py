@@ -6,8 +6,7 @@ import pandas as pd
 import logging
 from tool11 import tool11
 import re
-#import platform
-#import datetime
+
 
 
 _log = logging.getLogger(__name__)
@@ -34,19 +33,6 @@ def countgenes():
     GENES_IN_HPO = openfile(no_genes_file)
     return int(GENES_IN_HPO)
 
-## system information and timestamp of HPO database file. To find out which version of HPO is used.
-# print "system: ", platform.system()
-# if platform.system() == 'Windows':
-#     GENES_IN_HPO_timestamp =  datetime.datetime.fromtimestamp(os.path.getctime(GENES_IN_HPO)).strftime('%c')
-# else:
-#     stat = os.stat(GENES_IN_HPO)
-# try:
-#     GENES_IN_HPO_timestamp = datetime.datetime.fromtimestamp(stat.st_birthtime).strftime('%c')
-# except AttributeError:
-#     # We're probably on Linux. No easy way to get creation dates here,
-#     # so we'll settle for when its content was last modified.
-#     GENES_IN_HPO_timestamp =  datetime.datetime.fromtimestamp(stat.st_mtime).strftime('%c')
-# print "HPO database retrieved on: ", GENES_IN_HPO_timestamp
 
 @app.route('/')
 def index():

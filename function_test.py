@@ -29,10 +29,6 @@ if nq == 0:
 def formula(q,Q,nq,nQ):
 	return math.log((q / float(Q)) / float((nq / float(nQ))), 2)
 
-def formula_wsigm(q,Q,nq,nQ):
-	return math.log((q / float(Q)) / float((nq / float(float(nQ*sigmoid(Q))))), 2)
-
-
 def formula_lin_zerocorr(q,Q,nq,nQ):
 	
 	#if Q <= 40:
@@ -50,11 +46,9 @@ def formula_lin_zerocorr(q,Q,nq,nQ):
 	return nq_corr*math.log((q / float(Q)) / float((nq / float(nQ))), 2) - zero_corr
 
 Phenotype_score = formula(q,Q,nq,nQ)
-Phenotype_score_wsigm = formula_wsigm(q,Q,nq,nQ)
 Phenotype_score_lin_zerocorr = formula_lin_zerocorr(q,Q,nq,nQ)
 
 print "PS original", Phenotype_score
-#print "PS with sigmoid x-8:", Phenotype_score_wsigm,"new nQ:", float(nQ*sigmoid(Q)),"factor:",sigmoid(Q)
 print "formula_lin_zerocorr: ", Phenotype_score_lin_zerocorr
 
 

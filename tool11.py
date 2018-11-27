@@ -1,3 +1,8 @@
+## Galiphy version 1.1
+# This script imports HPO, and has the clients gene list as input.
+# It calculates phenotype scores based on enrichment.
+# Phenotypes are mapped back to their genes and gene scores are generated.
+# Outputs are 3 tsv files which are written in the output folder. 
 
 import os,errno
 import pandas as pd
@@ -85,16 +90,17 @@ def add10toHPOfile(query_df,HPOfile):
 
 
 def formula_lin_zerocorr(q, Q, nq, nQ):
-    
-    # This function is added in the 1.1 version of Galiphy. 
-    # When phenotypes had no occurences among the query genes, but because
-    # the zero is changed to 0.1, the phenotype score ends up to be positive.
-    # Since a positive score is not wanted for any phenotype that does not
-    # occur among the query genes, the score are lowered in this function.
-    # The zero correction is the score for q=0 and nq=1.
-    # Every time the q (frequency among query genes) is zero (and thus 0.1),
-    # the zero correction is substracted from the resulting score. This way,
-    # every PS of q=0 ends up to be negative (or zero, in case of q=0 nq=1).
+    """
+    This function is added in the 1.1 version of Galiphy. 
+    When phenotypes had no occurences among the query genes, but because
+    the zero is changed to 0.1, the phenotype score ends up to be positive.
+    Since a positive score is not wanted for any phenotype that does not
+    occur among the query genes, the score are lowered in this function.
+    The zero correction is the score for q=0 and nq=1.
+    Every time the q (frequency among query genes) is zero (and thus 0.1),
+    the zero correction is substracted from the resulting score. This way,
+    every PS of q=0 ends up to be negative (or zero, in case of q=0 nq=1).
+    """
     
     if q == 0.1:
         zero_corr = math.log((0.1 / float(Q)) / float((1 / float(nQ))), 2)
