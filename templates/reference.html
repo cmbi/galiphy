@@ -59,7 +59,7 @@
       <b>Problem:</b><br>
       When phenotypes are not found among the query genes, the variable <font class='formula'>q</font> is changed from 0 to 0.1. This is done in order to prevent mathematical error. However, 0.1 divided by any query gene list length creates a bigger number than the value of <font class='formula'>nq</font> divided by the non-query gene list length. I.e. in many cases, the phenotype score is higher than zero when a phenotype occurs zero times among the query genes. As this resulting positive phenotype score gives a gene an unwanted increase in gene score, a solution is needed. <br>
       <b>Solution:</b><br>
-      The highest unwanted phenotype score (PS) is the score of <font class='formula'>q</font>=0 and <font class='formula'>nq</font>=1. The scores are adjusted for all q = 0 cases by substracting the that PS. See the table below where both scoring in version 1.0 for q = 0 is shown and the new scoring in version 1.1.
+      The highest unwanted phenotype score (PS) is the score of <font class='formula'>q</font>=0 and <font class='formula'>nq</font>=1. The scores are adjusted for all q = 0 cases by subtracting the that PS. See the table below where both scoring in version 1.0 for q = 0 is shown and the new scoring in version 1.1.
       <table>
         <tr>
           <th>(q;nq)</th>
