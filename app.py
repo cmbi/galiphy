@@ -58,7 +58,7 @@ def uploader():
     if request.method == 'POST':
         # from the upload page, the clients input is called from the text-area of the form. 
         clientinput_unic = request.form['list_genes']
-        print "raw input client:\n", clientinput_unic
+        #print "raw input client:\n", clientinput_unic
         clientinput_unic = re.sub('[^a-zA-Z0-9 \n\r]', '', clientinput_unic) # all symbols are removed from unicode
         clientinput_genelist = clientinput_unic.replace('\r','').split('\n') # a list is created
         clientinput_genelist = [x.encode('UTF8') for x in clientinput_genelist] # removing the Unicode from the list
