@@ -73,6 +73,60 @@
       
     <h3 class="w3-bottombar w3-border-light-grey"><b>Output files:</b></h3>
 
+
+    <!-- Downloadable file: Gene scores file -->
+    <div class="w3-container w3-third">
+      <h5 class="w3-bottombar w3-border-green">Gene scores</h5>
+      <h4>
+        <a href="{{ url_for('download', filename=output_genes ) }}"><button class="results w3-green">Download</button></a>​
+      </h4>
+      <p style="font-size:0.85em">
+        Main file for most research questions.<br>
+        Gene scores are calculated using the enriched phenotypes.<br>
+        This file contains all {{ genes_in_HPO }} genes in HPO with their gene scores.<br>
+        Find your candidate genes, the high scoring genes outside the query.
+      </p>
+      <p style="font-size:0.75em">
+        Column information:
+        <br>
+        <!-- Hoverable items explaining the content of the file -->
+        <span>
+          [
+          <font>
+            <span class="tooltip_r w3-green">
+              Gene ID 
+              <span class="tooltiptext_r w3-green">
+                gene identifier
+              </span>
+            </span>
+            &nbsp;&nbsp;
+            <span class="tooltip_r w3-green">
+              Gene name
+              <span class="tooltiptext_r w3-green">
+                gene name
+              </span>
+            </span>
+            &nbsp;&nbsp;
+            <span class="tooltip_r w3-green">
+              Query
+              <span class="tooltiptext_r w3-green">
+                1 if gene belongs to query genes<br>0 if gene is non-query gene
+              </span>
+            </span>
+            &nbsp;&nbsp;
+            <span class="tooltip_r w3-green">
+              Gene score
+              <span class="tooltiptext_r w3-green">
+                Score resulted in adding all <br> phenotype scores as seen<br>in gene-to-phen file
+              </span>
+            </span>
+          </font>
+          ]
+        </span>
+      </p>
+    </div>
+
+
     <!-- Downloadable file: Phenotype scores file -->
     <div class="w3-container w3-third" style="border-width: 20px;">
       <h5 class="w3-bottombar w3-border-blue">Phenotype scores</h5>
@@ -153,57 +207,7 @@
       </p>
     </div>
 
-    <!-- Downloadable file: Gene scores file -->
-    <div class="w3-container w3-third">
-      <h5 class="w3-bottombar w3-border-green">Gene scores</h5>
-      <h4>
-        <a href="{{ url_for('download', filename=output_genes ) }}"><button class="results w3-green">Download</button></a>​
-      </h4>
-      <p style="font-size:0.85em">
-        Main file for most research questions.<br>
-        Gene scores are calculated using the enriched phenotypes.<br>
-        This file contains all {{ genes_in_HPO }} genes in HPO with their gene scores.<br>
-        Find your candidate genes, the high scoring genes outside the query.
-      </p>
-      <p style="font-size:0.75em">
-        Column information:
-        <br>
-        <!-- Hoverable items explaining the content of the file -->
-        <span>
-          [
-          <font>
-            <span class="tooltip_r w3-green">
-              Gene ID 
-              <span class="tooltiptext_r w3-green">
-                gene identifier
-              </span>
-            </span>
-            &nbsp;&nbsp;
-            <span class="tooltip_r w3-green">
-              Gene name
-              <span class="tooltiptext_r w3-green">
-                gene name
-              </span>
-            </span>
-            &nbsp;&nbsp;
-            <span class="tooltip_r w3-green">
-              Query
-              <span class="tooltiptext_r w3-green">
-                1 if gene belongs to query genes<br>0 if gene is non-query gene
-              </span>
-            </span>
-            &nbsp;&nbsp;
-            <span class="tooltip_r w3-green">
-              Gene score
-              <span class="tooltiptext_r w3-green">
-                Score resulted in adding all <br> phenotype scores as seen<br>in gene-to-phen file
-              </span>
-            </span>
-          </font>
-          ]
-        </span>
-      </p>
-    </div>
+
       
   </div>
 

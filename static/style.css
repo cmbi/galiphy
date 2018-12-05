@@ -2318,17 +2318,17 @@ tr:nth-child(even)  { background-color:#B1AFB2; }
 
 tr:hover            { background-color: #906ABA;}
 
-#summary {
+.summarytool {
     border-collapse: collapse;
 }
 
-#summary td, #customers th {
+.summarytool td{
     border: 5px solid #625e63;
     padding: 4px;
 }
 
-#summary tr:nth-child(even){background-color: #716e72;}
-#summary tr:nth-child(odd){background-color: #817e82;}
+.summarytool tr:nth-child(even){background-color: #716e72;}
+.summarytool tr:nth-child(odd){background-color: #817e82;}
 
 
 
@@ -2359,8 +2359,24 @@ a:hover + .box,.box:hover{
 }
 
 /* Upload page (index) */
+.arrow {
+  box-sizing: border-box;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  margin-left: 40px;
+  border-style: solid;
+  border-color: white;
+  border-width: 0px 2px 2px 0px;
+  transform: rotate(45deg);
+  transition: border-width 150ms ease-in-out;
+}
 
-
+.arrow:hover{
+  transition: all 0.4s ease 0s;
+  border-bottom-width: 6px;
+  border-right-width: 6px;
+}
 
 /* tooltip Help */
 .tooltip_h {
@@ -2455,6 +2471,10 @@ font-size:1.2rem
 
 
 /* loading button upload page */
+
+
+
+
 
 /* loading background fading */
 

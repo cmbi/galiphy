@@ -13,6 +13,9 @@
     textarea {
       width: 100%;
     }
+    #text{
+    display:none;
+    }
   </style>
   <title>Galiphy</title>
   <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
@@ -55,6 +58,14 @@
       sumbit_btn.classList.add('running');
     }
   }
+function toggle_visibility(id) {
+   var e = document.getElementById(id);
+   if(e.style.display == 'block')
+      e.style.display = 'none';
+   else
+      e.style.display = 'block';
+}
+
 </script>
 
 <!-- Overlay effect when opening sidenav on small screens -->
@@ -66,37 +77,47 @@
   <div class="w3-container">
 
       <!-- Header and Galiphy introduction -->
-    <div class="w3-container" >
-      <div class="w3-container w3-twothird" style="padding-right: 30px">
+    <div class="w3-container w3-third">
+      <div class="w3-container" style="padding-right: 30px">
         <h2 id="h1results"><b><font color="941751">Welcome to Galiphy!</font></b></h2>
         <p>
-          <b>Galiphy predicts new human genes that have a similar function to your genes of interest.</b>
+          <b>Galiphy predicts new human genes with associated phenotypes.</b>
         </p>
-        The only thing needed to run Galiphy for your research or clinical interest is a list of human genes. This tool assumes that genes sharing a cellular function have a similar phenotype profile. <br>
-        Supplying a list of genes will teach the algorithm what phenotypes are typical for your genes of interest. Galiphy then returns a list of scored genes. These scores depict how much each gene fits the phenotype profile. High scoring genes that were not in your initial gene list are your candidate genes.
+        Galiphy only needs a list of human genes. This tool assumes that genes that share a cellular function have a similar phenotype profile. First, the algorithm determines what phenotypes are typical for the input gene list. Then, genes are scored in which high scoring genes that were not in your initial gene list are your new candidate genes.
       </div>
-
-
-    <!-- Information box, with link to FAQs -->
-      <div class="w3-container w3-third" style="font-size:0.85em; border: solid 3px #45A9A6">
-        <b><font size="3" color="941751">Is Galiphy worth exploring for me?</font></b>
-        <i>
-          <span style="float:right">
-            <a href="{{ url_for('help') }}" class="w3-text-green w3-hover-text-red">
-              <b>More FAQs</b>
-            </a>
-          </span>
+      <br><br>
+            <!-- Information box, with link to FAQs -->
+      <div class="w3-container" style="font-size:0.85em; border: solid 3px #45A9A6">
+      
+        <b><font color="941751">Is Galiphy worth exploring for me?</font></b>
+       
+        <span style="float:right">
+          <a href="{{ url_for('help') }}" class="w3-text-green w3-hover-text-red">
+            <b>More FAQs</b>
+          </a>
+        </span>
+        <div class="w3-container">
+          <a onclick="toggle_visibility('FAQ2');">
+            <div class="arrow" style="border-color: #941751"></div>
+          </a>  
+          <br>
+        </div>
+        <span id="FAQ2" style="display:none">
+          <i>
           <ul style="padding-left:20px">
             <li>You are a clinical professional and interested in some candidate genes that may be associated with a disease.</li>
             <li>You are a researcher and looking for candidate genes not yet discovered to be in your pathway of interest.</li>
             <li>You are already working with genes that are underannotated and looking for more validation for your (clinical) lab experiments.</li>
           </ul>
-        </i>
+          </i>
+        </span>
       </div>
+      <br><br>
     </div>
 
+
       <!-- Client input field, for input to tool (form: one textarea and one submit button) with hoverable example inputs -->
-    <div class="w3-container w3-quarter" style="width:400px;margin-left: 70px">
+    <div class="w3-container w3-half" style="width:100vh">
       <form name= "myForm" method="POST" action="{{ url_for('uploader') }}" class=add-entry id="input_form" onSubmit="validateform(myForm.list_genes); return True">
         <dl>
 
@@ -132,7 +153,7 @@
           </dt> 
           <!-- Textarea for the input -->
           <dt>
-            <textarea name="list_genes" rows=10 style="width: 250px" value="List of genes" id="textinput" form="input_form"></textarea>
+            <textarea name="list_genes" rows=16 style="width: 92vh" value="List of genes" id="textinput" form="input_form"></textarea>
           
           <!-- Submit button. After clicking, content of textarea is sent to app.py and loading 'bouncing ball' animation starts -->
           
@@ -140,20 +161,29 @@
               Submit
               <div class="ld ld-ball ld-bounce">
               </div>
-            </button><span style="color:#625E63; float: right"> Read on &#8595;</span>
+            </button>
           </dt>
         </dl>
       </form>
 
     </div>
+
   </div>
+
 
 <!-- Text area explanation of Galiphy  -->
   <div class="w3-container w3-dark-grey">
-      <h2><b>What does Galiphy do?</b></h2>
-      <div class="w3-container w3-twothird">
-        <h4>Super short explanation</h4>
-        <table id="summary" style="font-size:0.9em">
+    <div class="w3-container w3-half">
+      <div class="w3-container">
+        <h4>Super short explanation <a onclick="toggle_visibility('ss_expl');">
+          <div class="arrow"></div>
+        </a> </h4>
+      </div>
+      <div class="w3-container">
+         
+      </div>
+      <span id="ss_expl" style="display:none">
+        <table class="summarytool" style="font-size:0.9em">
           <tr>
             <td><b>Goal</b></td>
             <td>Find new candidate genes associated with your cellular function of interest</td>
@@ -182,17 +212,27 @@
             <td><b>Conclusion</b></td>
             <td>Genes with high scores probably have a similar cellular function as your input genes and are phenotypically linked to your genes of interest</td>
           </tr>
-        </table>     
-      </div> 
-      <div class="w3-container w3-threequarter">
-        <h4>Further explanation:</h4>        
-        <ul>
-          <li><b><a href="https://hpo.jax.org/app/" class="w3-text-green w3-hover-text-red" target="_blank">Human Phenotype Ontology</a></b> phenotype database (abbreviated as HPO)</li>
-          <li><b><a href="{{ url_for('help') }}" class="w3-text-green w3-hover-text-red" >Help page</a></b> contains FAQ, tutorial, example and algorithm section</li>
-        </ul>
+        </table>
+      </span>     
+  </div> 
+    <div class="w3-container w3-half">
+      <h4>Further explanation:</h4>        
+      <ul>
+        <li><b><a href="https://hpo.jax.org/app/" class="w3-text-green w3-hover-text-red" target="_blank">Human Phenotype Ontology</a></b> phenotype database (abbreviated as HPO)</li>
+        <li><b><a href="{{ url_for('help') }}" class="w3-text-green w3-hover-text-red" >Help page</a></b> contains FAQ, tutorial, example and algorithm section</li>
+      </ul>
+    </div>
+      
+    <div class="w3-container w3-half">
+      <div class="w3-container">
+        <h4>Input</h4>
       </div>
-      <div class="w3-container w3-half">
-        <h4><b> Input: gene list </b></h4>
+      <div class="w3-container">
+        <a onclick="toggle_visibility('input');">
+          <div class="arrow"></div>
+        </a>  
+      </div>
+      <span id="input" style="display:none">
         <h5 class="w3-bottombar w3-border-purple">Gene list of interest</h5>
         <p>
           Accepted formats are gene names (symbol), Entrez gene IDs and Ensembl gene IDs, e.g. COX4I1P2, 652170 and ENSG00000228869, respectively.<br>
@@ -200,31 +240,41 @@
         	<br>
           Note that Galiphy only uses genes listed in the phenotype database ({{ genes_in_HPO }} genes) HPO as input. 
         </p>
+      </span>
+    </div>
+
+    <div class="w3-container w3-half">
+      <div class="w3-container">
+        <h4>Output</h4>
       </div>
-      <div class="w3-container w3-half">
-        <h4> <b> Output: 3 files</b></h4>
-        <h5 class="w3-bottombar w3-border-blue">1. Phenotype scored</h5>
-        <p>
-          The phenotype scores are based on the enrichment of a given phenotype in the input list of genes. <br>
-          This file contains all phenotypes scored as well as their frequencies in and outside the input gene list.<br>
-          <i>Interesting for clinicians</i>: find the most typical phenotypes of your query list.
-        </p>
-      
-        <h5 class="w3-bottombar w3-border-green">2. Genes scored</h5>
+      <div class="w3-container">
+        <a onclick="toggle_visibility('output');">
+          <div class="arrow"></div>
+        </a>  
+      </div>
+      <span id="output" style="display:none">
+        <h5 class="w3-bottombar w3-border-green">Gene scores</h5>
         <p>
           Gene scoring is calculated using the enriched phenotypes.<br>
           This file contains all {{ genes_in_HPO }} genes in HPO with their gene scores.<br>
           <i>Most interesting file for researchers and clinicians:</i> find your candidate genes, the high scoring genes outside the query.
         </p>
 
-        <h5 class="w3-bottombar w3-border-myred">3. How genes are scored</h5>
+        <h5 class="w3-bottombar w3-border-blue">Phenotype scores</h5>
+        <p>
+          The phenotype scores are based on the enrichment of a given phenotype in the input list of genes. <br>
+          This file contains all phenotypes scored as well as their frequencies in and outside the input gene list.<br>
+          <i>Interesting for clinicians</i>: find the most typical phenotypes of your query list.
+        </p>
+        <h5 class="w3-bottombar w3-border-myred">How genes are scored</h5>
         <p>
           This output file contains all {{ genes_in_HPO }} genes together with their HPO phenotypes, phenotype frequencies and phenotype scores. <br>
           This file is mostly for transparency: you can inspect what Galiphy did between phenotypes scoring (file 1) and gene scoring (file 2).
         </p>
-        <br><br><br><br><br>
+      </span>
+      <br><br>
 
-      </div>
+    </div>
   </div>
   <!-- End page content -->
 </div>
