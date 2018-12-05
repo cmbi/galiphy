@@ -280,7 +280,7 @@ def tool11(filehandle):
     genescores_df = scoregenes(phenscores_dict, genestophen_dict, gene_dict, output_genes)
 
 
-    print '\nPhenotype scoring results: (saved as "%s")\n'%output_phen[7:], phen_df, 
-    print '\n\nGene scoring results: (saved as "%s")\n'%output_genes[7:], genescores_df
+    print '\nPhenotype scoring results: (saved as "%s")\n'%output_phen[7:] 
+    print '\n\nGene scoring results: (saved as "%s")\n'%output_genes[7:]
     return phen_df, genescores_df, numbers, output_phen, output_genes, output_phenpergenes, accepted_df, dropped_df, Q, missing, dupli
 
