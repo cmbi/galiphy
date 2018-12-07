@@ -31,7 +31,7 @@
     <hr>
     <h5>Menu</h5>
   
-  <a href="{{ url_for('index') }}" class="w3-padding w3-hover-green"></i> > Tool</a>
+  <a href="{{ url_for('index') }}" class="w3-padding w3-hover-green"></i> > Home</a>
   <a href="{{ url_for('help') }}" class="w3-padding w3-hover-green"></i> &nbsp; <b><font color="941751"> > Help </font></b></a>
   <a href="{{ url_for('reference') }}" class="w3-padding w3-hover-green"></i> > Reference</a>
   <a href="{{ url_for('contact') }}" class="w3-padding w3-hover-green"></i> > Contact</a>
@@ -54,12 +54,13 @@
   <!-- Three chapters on this page that can be jumped to. -->
   <div class="w3-container" id=top><br><br><br>
     Before seeking contact, be sure to read this Help page carefully.<br><br>
-    <p>
-      <b>Jump to:</b>
-      <span style="display: inline-block;">
-      <b><a class="one" href="#tutorial" style="color: white;margin-left: 20px">Tutorial</a>
-      <a class="one" href="#example" style="color: white;margin-left: 20px">Example</a><a class="one" href="#algorithm" style="color: white;margin-left: 20px">Algorithm</a></b></span>
-    </p>
+
+    <div class="btn-group" style="border: 10px solid #F0F0F0;width:60%; margin-left:20%;margin-right:20%">
+      <a href="#faqs"><button style="width:25%">FAQs</button></a>
+      <a href="#tutorial"><button style="width:25%">Tutorial</button></a>
+      <a href="#example"><button style="width:25%">Example</button></a>
+      <a href="#algorithm"><button style="width:25%">Algorithm</button></a>
+    </div>
   </div>
 
 
