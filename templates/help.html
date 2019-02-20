@@ -140,7 +140,7 @@
     <div class="w3-container">
       <h3 class="w3-bottombar w3-border-white"><b>Step 1: </b>Gene list</h3>
       <h5><b><font color="009193"> What Galiphy does: </font></b></h5>
-      Galiphy recognizes different types of gene names (Entrez gene names, Ensembl gene names, gene symbols and Ensembl gene IDs). 
+      Galiphy recognizes different types of gene entries (gene symbols, Entrez gene IDs and Ensembl gene IDs). 
       Not all recognized genes are listed in the <a href="https://hpo.jax.org/app/" class="w3-text-green w3-hover-text-red" target="_blank"> HPO database</a>. Galiphy drops genes from your input gene list if they are not in HPO. 
 
       <h5><b><font color="074080"> What you should do: </font></b></h5>
@@ -151,7 +151,7 @@
 
       <h3 class="w3-bottombar w3-border-white"><b>Step 2: </b> Calculations</h3>
       <h5><b><font color="009193"> What Galiphy does: </font></b></h5>
-      Galiphy starts scoring. First, it generates a phenotype score for each phenotype in the database. Galiphy takes all phenotypes, determines how often each phenotype occurs in the query and how often it occurs in the rest of the HPO database. The phenotype score formula uses these frequencies to generate the phenotype score. Then, Galiphy adds all the scores of the phenotypes that belong to one gene which results in the gene score. More details about the scoring in step 4: Interpretation of the data.
+      Galiphy starts scoring. First, it generates a phenotype score for each phenotype in the database. Galiphy takes all phenotypes, determines how often each phenotype occurs in the query and how often it occurs in the rest of the HPO database. The phenotype score formula uses these frequencies to generate the phenotype score. Then, Galiphy adds all the scores of the phenotypes that belong to one gene which results in the gene score. More about scoring in step 4 and the <a href="#algorithm" class="w3-text-green w3-hover-text-red" >algorithm</a> section.
 
       <h5><b><font color="074080"> What you should do: </font></b></h5>
       Wait 5 seconds.
