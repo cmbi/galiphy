@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="keywords" content="galiphy, cmbi, nijmegen, umcn, gali phy">
   <meta name="author" content="Ilja van Hoek">
+  <meta name="description" content="For questions or problems contact Ilja van Hoek. Involved institutions: Centre for molecular and biomolecular informatics (CMBI), Radboud institute for molecular life sciences (RIMLS) and Radboud University (RU), all situated in Nijmegen, the Netherlands.">
   <meta name="google-site-verification" content="jAkrjwWtMnSaV13M6DIlRcf7wxGo-bhe5jkU5D1zTU4">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   <style>
@@ -17,7 +18,7 @@
 
   }
   </style>
-  <title>Contact</title>
+  <title>Galiphy - Contact</title>
   <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body class="w3-v-light-grey">
@@ -34,13 +35,14 @@
 
   <div class="w3-container">
     <div align="center">
-      <img src="{{ url_for('static', filename='galiphy_logo.png') }}" class="w3-circle w3-margin-right" style="width:56px">
+      <a href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename='galiphy_logo.png') }}" alt="Galiphy logo" class="w3-circle w3-margin-right" style="width:56px">
+      </a>
       <h5><b><font color="941751">GALIPHY &emsp; </font></b></h5>
     </div>
     <hr>
-    <h5>Menu</h5>
   
-  <a href="{{ url_for('index') }}" class="w3-padding w3-hover-green"></i> > Home </a>
+  <h4><b><a href="{{ url_for('index') }}" class="w3-padding w3-hover-green"></i>&nbsp;Home </a></b></h4>
   <a href="{{ url_for('help') }}" class="w3-padding w3-hover-green"></i>  > Help </a>
   <a href="{{ url_for('reference') }}" class="w3-padding w3-hover-green"></i> > Reference</a>
   <a href="{{ url_for('contact') }}" class="w3-padding w3-hover-green"></i> &nbsp; <b><font color="941751"> > Contact </font></b></a>

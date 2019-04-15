@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="keywords" content="galiphy, cmbi, nijmegen, umcn, gali phy"/>
+  <meta name="keywords" content="galiphy, cmbi, nijmegen, umcn, gali phy, giphy, tool, tools, enrichment, enrichments, enrihcment, ernichment, erichment, phenotype, phentype, phentoype, phenotypes, phenotypic, genes, gene, human, ontology, galify, bioinformatics, bio, informatics, bioinformatical, disease, diseases, disorder, disorders, list, genelist, gsea, pathway, pathways, entrez, ensembl, analysis, analyses, anaylsis, hpo, correlation, correlations, typical, typcail, tipical, similair, silimar, simular, similar, of, interest, database, frequency, frequencies, score, scores, scored, scoring, rank, ranked, ranking, ranks, associated, associate, associated, assocation, assoicate, assoicated, association, relative, reletive, functional, functionally, related, coexpression, coexpressions, phenotypically, phenotypical, fingerprint, algorithm, algoritm, algorhitm, probability, probalibity, probabilities, chance, bayesian, integration, intergration, prior, proir, input, output, research, medical, biology, biological, string, kegg, uniprot, uniprotkb, omim, weget, reactome, genecards, malacards, online, computational, compute, computes, prevalence, prevalences, method, dysfunction, dysfunctional, unravel, unravelling, unravelled, molecular, mechanisms, mechanism, experiment, experiments, experimental, statistical, statistics, significant, validation, validate, validated, validating, sequence, variation, genetic, genetics, comparative, geneid, radboud, university, discovery, unknown, candidate, uncovering, uncover, metabolism, relationship, relationships, tissue, system, systems, genotype, genome, genotypes, genotyping, mutation, mutations, share, shares, sharing, knock, out, knock-out, knock-outs, data, science, biotechnology, datascience, big, data, clinical, cell, localisation, localization, encode, compare, compared, comparing, infer, inferring, inferred, predict, predicts, prediction, galliphy, caliphy, calliphy, calify, galephy, galefy, galephy, calephy, galiphi, galifi, galify, gelify, geliphy, gelaphy, gelafy, gelafi"/>
   <meta name="author" content="Ilja van Hoek"/>
+  <meta name="description" content="Home page - Galiphy predicts which human genes are functionally related. The algorithm assumes that genes sharing pathways or cellular function have a similar phenotype profile. The ranking of the genes is indicative for association with the enriched phenotypes.">
   <meta name="google-site-verification" content="jAkrjwWtMnSaV13M6DIlRcf7wxGo-bhe5jkU5D1zTU4"/>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   <style>
@@ -17,7 +18,7 @@
     display:none;
     }
   </style>
-  <title>Galiphy</title>
+  <title>Galiphy - bioinformatics tool for gene ranking using human phenotype enrichment</title>
   <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body class="w3-v-light-grey">
@@ -36,13 +37,14 @@
 
   <div class="w3-container">
     <div align="center">
-      <img src="{{ url_for('static', filename='galiphy_logo.png') }}" class="w3-circle w3-margin-right" style="width:56px">
+      <a href="{{ url_for('index') }}">
+      	<img src="{{ url_for('static', filename='galiphy_logo.png') }}" alt="Galiphy logo" class="w3-circle w3-margin-right" style="width:56px">
+      </a>
       <h5><b><font color="941751">GALIPHY &emsp; </font></b></h5>
     </div>
     <hr>
-    <h5>Menu</h5>
   
-  <a href="{{ url_for('index') }}" class="w3-padding w3-hover-green"></i> &nbsp; <b><font color="941751"> > Home </font></b></a>
+  <h4><a href="{{ url_for('index') }}" class="w3-padding w3-hover-green"></i> &nbsp; <b><font color="941751">Home </font></b></a></h4>
   <a href="{{ url_for('help') }}" class="w3-padding w3-hover-green"></i>  > Help </a>
   <a href="{{ url_for('reference') }}" class="w3-padding w3-hover-green"></i> > Reference</a>
   <a href="{{ url_for('contact') }}" class="w3-padding w3-hover-green"></i> > Contact</a>
@@ -80,9 +82,9 @@ function toggle_visibility(id) {
     <div class="w3-container w3-third">
         <h2 id="h1results"><b><font color="941751">Welcome to Galiphy!</font></b></h2>
         <p>
-          <b>Galiphy predicts new human genes with associated phenotypes.</b>
+          <b>Galiphy ranks genes based on phenotype enrichment.</b>
         </p>
-        Galiphy only needs a list of human genes. This tool assumes that genes that share a cellular function have a similar phenotype profile. First, the algorithm determines what phenotypes are typical for the input gene list. Then, genes are scored in which high scoring genes that were not in your initial gene list are your new candidate genes.
+        Using only a list of your human genes of interest, Galiphy predicts which genes are phenotypically associated to your genes of interest. The Galiphy algorithm assumes that genes sharing pathways or cellular function have a similar phenotype profile. First, the algorithm determines what phenotypes are typical for the input gene list. Then, the ranking of the genes is indicative for association with the enriched phenotypes.
 
     </div>
 
@@ -117,7 +119,7 @@ function toggle_visibility(id) {
                       name, IDs and<br>Ensembl code <br>mixed:<br>170692 <br>54205 <br>514 <br>841 <br>COX1  <br>COX2  <br>4514 <br>841 <br>BDNF  <br>1387 <br>CREB1 <br>ENSG00000102978  <br>ENSG00000144231 <br>ENSG00000163882 <br>etc..
                     </span>
                   </span>
-                or 
+                </font>or 
                 <a href="{{ url_for('static', filename='mitocarta_gene_IDs.txt') }}" class="w3-text-green w3-hover-text-red" target='_blank'>mitocarta list</a>)
               </font></i></font>
             </span>
@@ -150,7 +152,7 @@ function toggle_visibility(id) {
 
         <div class="w3-container">
           <div class="w3-container w3-light-dark-grey" style="text-align:center">
-            <h4>Super short explanation </h4>
+            <h4>Short explanation </h4>
           </div>
           <div class="w3-container">
               <a onclick="toggle_visibility('ss_expl');">
@@ -226,7 +228,7 @@ function toggle_visibility(id) {
 
         <div class="w3-container">
           <div class="w3-container w3-light-dark-grey" style="text-align:center">
-            <h4>Input</h4>
+            <h4>Input: gene list</h4>
           </div>
           <div class="w3-container">
             <a onclick="toggle_visibility('input');">
@@ -247,7 +249,7 @@ function toggle_visibility(id) {
 
         <div class="w3-container">
           <div class="w3-container w3-light-dark-grey" style="text-align:center">
-            <h4>Output</h4>
+            <h4>Output: prediction scores</h4>
           </div>
           <div class="w3-container">
             <a onclick="toggle_visibility('output');">
@@ -318,7 +320,7 @@ function toggle_visibility(id) {
 
 
   <div id=footercredits class="w3-container w3-dark-grey w3-padding" style="z-index:4" >
-    <span style="float: right;">Galiphy &copy; made by Ilja van Hoek</span>
+    <h5><span style="float: right;">Galiphy &copy; made by Ilja van Hoek</span></h5>
   </div> 
 
 
