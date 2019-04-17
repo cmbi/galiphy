@@ -1,4 +1,5 @@
 # Galiphy online tool
+![Galiphy logo](/static/galiphy_logo.png)
 
 ## Summary
 ### Finding new candidate genes associated with molecular systems by computational screening for typical phenotypes.
@@ -7,7 +8,7 @@ phenotype is for the query of the client. Subsequently, genes are scored using t
 list of genes of the client's interest, output are three tsv files which shows all scoring results. On the basis of these
 files, the client can find information about candidate genes.
 
-## Technical
+## Technical :octocat:
 
 ### Prerequisites
 
@@ -17,12 +18,55 @@ See [requirements.txt](requirements.txt).
 
 Phenotype database downloaded monthly from [HPO](http://compbio.charite.de/jenkins/job/hpo.annotations.monthly/lastSuccessfulBuild/artifact/annotation/ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt)
 
+This montly download is done by employing the bash command *weget* and removing the first line from the text file. In addition, the number of genes are counted in the text file and saved in a file "*GENES_IN_HPO.txt*" in the same folder as "*app.py*". 
+The database textfile directory should be in a textfile named "*db_directory.txt*",
+the tool11.py script retrieves the HPO database "*ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt*" from this directory. 
+The docker container needs to be restarted every time the database is updated. See Docker paragraph.
+*Current local file: /home/galiphy/updateHPOdb.sh 
+Current database folder: /home/galiphy/data/*
+
+
 ### Built With
 
 * Flask
 * Python 2.7
 * Html
 * CSS
+
+### Docker environment :whale:
+
+The tool is built in the Docker environment. 
+**Build docker image**
+A) 
+```
+docker build -t galiphy .
+```
+
+**Restart docker container**
+B)
+```
+docker stop cont_ID_galiphy
+```
+C)
+```
+docker rm cont_ID_galiphy
+```
+D)
+```
+docker run -d --name "cont_ID_galiphy" -p 5001:5001 -v "/home/galiphy:/home/galiphy" -v "/var/www/galiphy/output:/usr/src/app/output" galiphy
+```
+*The first -v indicates the directory of the files that are outside the container, in this case, the HPO database and the number of genes in it.
+the second -v indicates the files that are written in the output folder within the container, are placed outside the container. A directory that is cleaned periodically.*
+
+**Rebuilding the docker image**
+Step A, B and C, then remove the image:
+```
+docker rmi -f galiphy
+```
+Finally, step A and D
+
+
+
 
 ## Reference
 
