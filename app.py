@@ -6,6 +6,7 @@ import pandas as pd
 import logging
 from tool11 import tool11
 import re
+import yaml
 
 
 
@@ -31,7 +32,13 @@ def countgenes():
     directory = openfile('db_directory.txt')
     no_genes_file = directory+'GENES_IN_HPO.txt'
     GENES_IN_HPO = openfile(no_genes_file)
+    #GENES_IN_HPO = openfile(numbergenes_file)
     return int(GENES_IN_HPO)
+
+def config_yaml():
+    config = yaml.load(open("config.yaml").read())
+    return config["HPOdatabase"],config["output_path"]
+
 
 
 @app.route('/')
@@ -63,7 +70,8 @@ def uploader():
         clientinput_genelist = clientinput_unic.replace('\r','').split('\n') # a list is created
         clientinput_genelist = [x.encode('UTF8') for x in clientinput_genelist] # removing the Unicode from the list
         # Input send to tool of the latest version. Current = version 1.1
-        phen_df, genescores_df, numbers, outfile_phen, outfile_genes, outfile_phenpergenes, accepted_df, dropped_df, Q, missing, dupli = tool11(clientinput_genelist)
+        HPOdatabase, output_path = config_yaml()
+        phen_df, genescores_df, numbers, outfile_phen, outfile_genes, outfile_phenpergenes, accepted_df, dropped_df, Q, missing, dupli = tool11(clientinput_genelist, HPOdatabase, output_path)
         print "missing:", missing, len(missing), "dupli:", len(dupli), "dropped:", len(dropped_df), "accepted:", len(accepted_df)
         # information about the variables are also send to the html pages, as the result page has different sections shown dependent on the clients input.
         number_dropped = len(dropped_df)
@@ -73,22 +81,25 @@ def uploader():
         	accepted = accepted_df.to_html()
         except:
         	accepted = accepted_df
-        	
         try:
         	dropped = dropped_df.to_html()
         except:
         	dropped = dropped_df
 
-        return render_template('result.html', genes_in_HPO=countgenes(),output_phen=outfile_phen[7:],output_genes=outfile_genes[7:], output_phenpergenes=outfile_phenpergenes[7:], accepted=accepted, dropped=dropped, Q=Q, missing=missing, dupli=dupli, number_accepted=number_accepted, number_dropped=number_dropped)
+        return render_template('result.html', genes_in_HPO=countgenes(),output_phen=outfile_phen,output_genes=outfile_genes, output_phenpergenes=outfile_phenpergenes, accepted=accepted, dropped=dropped, Q=Q, missing=missing, dupli=dupli, number_accepted=number_accepted, number_dropped=number_dropped)
 
 
 @app.route('/download/<filename>')
 def download(filename):
+    print filename
     # A download function is called from the result page. Downloaded from output folder.
     file = os.path.join(os.getcwd(), 'output', filename)
     return send_file(file, as_attachment=True)
 
 
 if __name__ == '__main__':
-   app.run(host='0.0.0.0', port=5001, debug = True)
+    
+    #print HPOdatabase
+    #print output_path
+    app.run(host='0.0.0.0', port=5001, debug = True)
 

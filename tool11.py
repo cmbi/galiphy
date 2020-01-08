@@ -233,18 +233,16 @@ def openfile(file):
             print type(line)
             return line
 
-def tool11(filehandle):
+def tool11(filehandle, HPOfilename, output_path):
     """
     Requesthandler
 
 
     In this function all other function are called. Step 1 to 4.
-    Also some output file names are generated.
+    Also, some output filenames are generated.
 
     """
-
-    
-    HPOfilename = openfile('db_directory.txt')+"ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt"
+    #HPOfilename = openfile('db_directory.txt')+"ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt"
 
     # Step 1: Query checking
     ## if none of the genes are valid human genes, the tool cannot be run 
@@ -266,12 +264,14 @@ def tool11(filehandle):
     else:
         print "accepted_df not empty"
 
-
     # preparing file names with dates so that they all have a unique name
     date = str(datetime.now())[:-7].replace(" ","_").replace(":","-")
-    output_phen = 'output/Galiphy_v1_0_PhenotypeScores_'+date+'.tsv'
-    output_genes = 'output/Galiphy_v1_0_GeneScores_'+date+'.tsv'
-    output_phenpergenes = 'output/Galiphy_v1_0_PhenotypeScores_To_Genes_'+date+'.tsv'
+    output_phen_file = 'Galiphy_v1_1_PhenotypeScores_'+date+'.tsv'
+    output_genes_file = 'Galiphy_v1_1_GeneScores_'+date+'.tsv'
+    output_phenpergenes_file = 'Galiphy_v1_1_PhenotypeScores_To_Genes_'+date+'.tsv'
+    output_phen = output_path + output_phen_file
+    output_genes = output_path + output_genes_file
+    output_phenpergenes = output_path + output_phenpergenes_file
 
     # Step 3: Score phenotypes
     phenscores_dict, genestophen_dict, gene_dict, phen_df, phenpergenes_df, numbers = scorephenotypes(HPO_10, Q, output_phen, output_phenpergenes)
@@ -279,8 +279,8 @@ def tool11(filehandle):
     # Step 4: Score genes
     genescores_df = scoregenes(phenscores_dict, genestophen_dict, gene_dict, output_genes)
 
+    print '\nPhenotype scoring results: (saved as "%s")\n'%output_phen_file 
+    print '\n\nGene scoring results: (saved as "%s")\n'%output_genes_file
+    return phen_df, genescores_df, numbers, output_phen_file, output_genes_file, output_phenpergenes_file, accepted_df, dropped_df, Q, missing, dupli
 
-    print '\nPhenotype scoring results: (saved as "%s")\n'%output_phen[7:] 
-    print '\n\nGene scoring results: (saved as "%s")\n'%output_genes[7:]
-    return phen_df, genescores_df, numbers, output_phen, output_genes, output_phenpergenes, accepted_df, dropped_df, Q, missing, dupli
 

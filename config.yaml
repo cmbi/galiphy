@@ -1,0 +1,5 @@
+#HPOdatabase: /Users/Ilja/projects/data/ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt
+HPOdatabase: /home/galiphy/data/ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype
+#output_path: /Users/Ilja/projects/galiphy/output/
+output_path: /var/www/galiphy/output/
+
